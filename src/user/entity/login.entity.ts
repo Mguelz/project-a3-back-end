@@ -1,16 +1,16 @@
 import {
-    Column,
-    Entity,
-    JoinColumn,
-    OneToOne,
-    PrimaryGeneratedColumn,
-  } from 'typeorm';
-  import { PerfilEntity } from './perfil.entity';
-  import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
-  
-  @Entity()
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { PerfilEntity } from '../entity/perfil.entity';
+import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
+
+@Entity()
 export class LoginEntity {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_login: number;
 
   @OneToOne(() => PerfilEntity)

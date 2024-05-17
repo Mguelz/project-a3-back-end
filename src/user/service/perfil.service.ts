@@ -27,46 +27,42 @@ export class PerfilService {
   }
 
   // TODO esta dando erro
-    // async create(createPerfilDto: CreatePerfilDto): Promise<PerfilEntity> {
-    //   try {
-    //     return await this.perfilRepository.save(
-    //       this.perfilRepository.create(createPerfilDto),
-    //     );
-    //   } catch (error) {
-    //     if (error.code === 'ER_DUP_ENTRY') {
-    //       throw new HttpException('E-mail já registrado', HttpStatus.BAD_REQUEST);
-    //     } else {
-    //       throw new HttpException(
-    //         'Erro ao criar o registro. Tente novamente mais tarde.',
-    //         HttpStatus.INTERNAL_SERVER_ERROR,
-    //       );
-    //     }
-    //   }
-    // }
+  async create(createPerfilDto: CreatePerfilDto): Promise<PerfilEntity> {
+    try {
+      return await this.perfilRepository.save(
+        this.perfilRepository.create(createPerfilDto),
+      );
+    } catch (error) {
+      if (error.code === 'ER_DUP_ENTRY') {
+        throw new HttpException('E-mail já registrado', HttpStatus.BAD_REQUEST);
+      } else {
+        throw new HttpException(
+          'Erro ao criar o registro. Tente novamente mais tarde.',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }
+  }
 
- 
-// TODO esta dando erro
-// async update(id: number, updatePerfilDto: UpdatePerfilDto): Promise<void> {
-//     const result = await this.perfilRepository.update(id, updatePerfilDto);
-//     if (result.affected === 0) {
-//       throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
-//     }
-//   }
-  
-//     // Atualiza os campos do perfilToUpdate com os valores do DTO
-//     Object.assign(perfilToUpdate, updatePerfilDto);
-  
-//     // Salva as alterações no banco de dados
-//     await this.perfilRepository.save(perfilToUpdate);
-//   }
-
-async delete(id: number): Promise<void> {
-    const result = await this.perfilRepository.delete(id);
+  // TODO esta dando erro
+  async update(id: number, updatePerfilDto: UpdatePerfilDto): Promise<void> {
+    const result = await this.perfilRepository.update(id, updatePerfilDto);
     if (result.affected === 0) {
       throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
     }
   }
 
+  //     // Atualiza os campos do perfilToUpdate com os valores do DTO
+  //   Object.assign(perfilToUpdate, updatePerfilDto);
 
+  //   Salva as alterações no banco de dados
+  //   await this.perfilRepository.save(perfilToUpdate);
+  // }
 
+  async delete(id: number): Promise<void> {
+    const result = await this.perfilRepository.delete(id);
+    if (result.affected === 0) {
+      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
+    }
+  }
 }
