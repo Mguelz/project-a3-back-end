@@ -1,11 +1,11 @@
 import { IsInt, IsNumber, IsPositive } from 'class-validator';
-import { CarrinhoCabecaDto } from './carrinho-cabeca.dto';
+import { CreateCarCabDto } from './carrinho-cabeca.dto';
 
 export class CarrinhoItensDto {
   @IsNumber()
   id: number;
 
-  carrinhoCabeca: CarrinhoCabecaDto; // Use o DTO adequado se o relacionamento exigir
+  carrinhoCabeca: CreateCarCabDto; // deve estar errado
 
   @IsNumber()
   @IsPositive({ message: 'O preço deve ser um número positivo' })

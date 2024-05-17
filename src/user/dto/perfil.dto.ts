@@ -2,11 +2,6 @@ import { PartialType } from '@nestjs/mapped-types';
 import { IsNumber, IsString, Length } from 'class-validator';
 
 export class CreatePerfilDto {
-  //   constructor(id_perfil: string, descricao: string) {
-  //     this.id_perfil = id_perfil;
-  //     this.descricao = descricao;
-  //   }
-
   @IsNumber()
   @Length(1, 4, { message: 'O ID do perfil deve ter entre 1 e 4 caracteres' })
   id_perfil: number;

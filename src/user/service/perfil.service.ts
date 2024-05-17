@@ -26,7 +26,6 @@ export class PerfilService {
     return perfil;
   }
 
-  // TODO esta dando erro
   async create(createPerfilDto: CreatePerfilDto): Promise<PerfilEntity> {
     try {
       return await this.perfilRepository.save(
@@ -44,7 +43,6 @@ export class PerfilService {
     }
   }
 
-  // TODO esta dando erro
   async update(id: number, updatePerfilDto: UpdatePerfilDto): Promise<void> {
     const result = await this.perfilRepository.update(id, updatePerfilDto);
     if (result.affected === 0) {
@@ -52,12 +50,6 @@ export class PerfilService {
     }
   }
 
-  //     // Atualiza os campos do perfilToUpdate com os valores do DTO
-  //   Object.assign(perfilToUpdate, updatePerfilDto);
-
-  //   Salva as alterações no banco de dados
-  //   await this.perfilRepository.save(perfilToUpdate);
-  // }
 
   async delete(id: number): Promise<void> {
     const result = await this.perfilRepository.delete(id);

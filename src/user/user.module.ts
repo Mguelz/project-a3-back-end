@@ -7,13 +7,15 @@ import { PerfilEntity } from './entity/perfil.entity';
 import { LoginEntity } from './entity/login.entity';
 import { PerfilService } from './service/perfil.service';
 import { PerfilController } from './controller/perfil.controller';
+import { LoginService } from './service/login.service';
+import { LoginController } from './controller/login.controller';
 
 @Module({
   imports: [
     DatabaseModule,
     TypeOrmModule.forFeature([PerfilEntity, LoginEntity]),
   ],
-  controllers: [AppController, PerfilController],
-  providers: [AppService, PerfilService],
+  controllers: [AppController, PerfilController, LoginController],
+  providers: [AppService, PerfilService, LoginService],
 })
 export class UserModule {}

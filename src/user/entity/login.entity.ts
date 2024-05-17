@@ -13,13 +13,16 @@ export class LoginEntity {
   @PrimaryGeneratedColumn()
   id_login: number;
 
-  @OneToOne(() => PerfilEntity)
+  @OneToOne(() => PerfilEntity, (perfil) => perfil.login)
   @JoinColumn()
-  id_perfil: number;
+  perfil: PerfilEntity;
 
-  @OneToOne(() => CarrinhoCabecaEntity)
+  @OneToOne(
+    () => CarrinhoCabecaEntity,
+    (carrinhoCabeca) => carrinhoCabeca.login,
+  )
   @JoinColumn()
-  id_carrinhoCabeca: number;
+  carrinhoCabeca: CarrinhoCabecaEntity;
 
   @Column({ unique: true, length: 14 })
   cpf: string;

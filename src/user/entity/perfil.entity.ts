@@ -9,21 +9,13 @@ import { LoginEntity } from '../entity/login.entity';
 
 @Entity()
 export class PerfilEntity {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id_perfil: number;
 
   @Column({ length: 100 })
   descricao: string;
 
-  @OneToOne(() => LoginEntity)
+  @OneToOne(() => LoginEntity, (login) => login.perfil)
   @JoinColumn()
   login: LoginEntity;
-    // antigo
-//   @OneToOne(() => LoginEntity)
-//   @JoinColumn()
-//   @PrimaryGeneratedColumn()
-//   id_perfil: number;
-
-//   @Column({ length: 100 })
-//   descricao: string;
 }
