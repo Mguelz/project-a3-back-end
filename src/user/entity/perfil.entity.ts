@@ -5,7 +5,7 @@ import { LoginEntity } from "../entity/login.entity";
 export class PerfilEntity {
     @OneToOne(() => LoginEntity) @JoinColumn()
     @PrimaryGeneratedColumn()
-    id_perfil: string;
+    id_perfil: number;
 
     @Column({ length: 100 })
     descricao: string;

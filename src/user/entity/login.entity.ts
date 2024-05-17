@@ -15,7 +15,7 @@ export class LoginEntity {
 
   @OneToOne(() => PerfilEntity)
   @JoinColumn()
-  id_perfil: string;
+  id_perfil: number;
 
   @OneToOne(() => CarrinhoCabecaEntity)
   @JoinColumn()
