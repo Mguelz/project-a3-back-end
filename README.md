@@ -1,3 +1,31 @@
+Exemplos de Json para Crud no banco
+
+Login Exemples
+
+Post
+{
+  "id_perfil": "1232",
+  "cpf": "12345678922",
+  "email": "pedro@gmail.com",
+  "senha": "Pedro@123",
+  "nome": "Pedro da Silva",
+  "data_nascimento": "1999-05-10"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>

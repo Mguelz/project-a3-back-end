@@ -35,7 +35,10 @@ export class LoginService {
       );
     } catch (error) {
       if (error.code === 'ER_DUP_ENTRY') {
-        throw new HttpException('E-mail já registrado', HttpStatus.BAD_REQUEST);
+        throw new HttpException(
+          'Algum dado informado já está registrado.',
+          HttpStatus.BAD_REQUEST,
+        );
       } else {
         throw new HttpException(
           'Erro ao criar o registro. Tente novamente mais tarde.',

@@ -1,12 +1,14 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { CatalogoCabecaEntity } from "../entity/catalogo-cabeca.entity";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CatalogoCabecaEntity } from '../entity/catalogo-cabeca.entity';
 
 @Entity()
 export class GeneroEntity {
-    @OneToOne(() => CatalogoCabecaEntity) @JoinColumn()
-    @PrimaryGeneratedColumn()
-    id_genero: number
+  @PrimaryGeneratedColumn()
+  id_genero: number;
 
-    @Column({ length: 100 })
-    descricao: string;
+  @Column({ length: 100 })
+  descricao: string;
+
+  @ManyToMany(() => CatalogoCabecaEntity, (catalogo) => catalogo.generos)
+  catalogos: CatalogoCabecaEntity[];
 }

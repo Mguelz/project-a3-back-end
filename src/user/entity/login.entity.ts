@@ -7,9 +7,11 @@ import {
 } from 'typeorm';
 import { PerfilEntity } from '../entity/perfil.entity';
 import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
+import { IsOptional } from 'class-validator';
 
 @Entity()
 export class LoginEntity {
+  @IsOptional()
   @PrimaryGeneratedColumn()
   id_login: number;
 
@@ -17,6 +19,7 @@ export class LoginEntity {
   @JoinColumn()
   perfil: PerfilEntity;
 
+  @IsOptional()
   @OneToOne(
     () => CarrinhoCabecaEntity,
     (carrinhoCabeca) => carrinhoCabeca.login,
@@ -27,6 +30,7 @@ export class LoginEntity {
   @Column({ unique: true, length: 14 })
   cpf: string;
 
+  @IsOptional()
   @Column({ unique: true, length: 40 })
   email: string;
 

@@ -11,13 +11,14 @@ import {
 
 export class CreateLoginDto {
   @IsOptional()
-  @IsNumber()
+  // @IsNumber()
   id_login: number;
 
   @IsString()
   @Length(1, 4, { message: 'O ID do login deve ter entre 1 e 4 caracteres' })
   id_perfil: number;
 
+  @IsOptional()
   @IsNumber()
   id_carrinhoCabeca: number;
 
