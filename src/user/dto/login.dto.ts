@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import {
   IsString,
   IsEmail,
@@ -5,15 +6,17 @@ import {
   Matches,
   IsNumber,
   IsDateString,
+  IsOptional,
 } from 'class-validator';
 
-export class LoginDto {
+export class CreateLoginDto {
+  @IsOptional()
   @IsNumber()
   id_login: number;
 
   @IsString()
-  @Length(1, 4, { message: 'O ID do perfil deve ter entre 1 e 4 caracteres' })
-  id_perfil: string;
+  @Length(1, 4, { message: 'O ID do login deve ter entre 1 e 4 caracteres' })
+  id_perfil: number;
 
   @IsNumber()
   id_carrinhoCabeca: number;
@@ -23,6 +26,7 @@ export class LoginDto {
   @Matches(/^\d{11}$/, { message: 'O CPF deve conter exatamente 11 dígitos' })
   cpf: string;
 
+  @IsOptional()
   @IsEmail()
   @Length(8, 40, { message: 'O e-mail deve ter entre 8 e 40 caracteres' })
   email: string;
@@ -39,6 +43,9 @@ export class LoginDto {
   @Length(2, 40, { message: 'O nome deve ter entre 2 e 40 caracteres' })
   nome: string;
 
+  @IsOptional()
   @IsDateString()
   data_nascimento: Date;
 }
+
+export class UpdateLoginDto extends PartialType(CreateLoginDto) {}

@@ -1,18 +1,21 @@
 import { IsNumber, IsObject, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
-import { LoginDto } from './login.dto';
+import { CreateLoginDto } from '../dto/login.dto';
+import { PartialType } from '@nestjs/mapped-types';
 
-export class CarrinhoCabecaDto {
+export class CreateCarCabDto {
   @IsNumber()
   id_carrinhoCabeca: number;
 
   @IsObject()
   @ValidateNested()
-  @Type(() => LoginDto)
-  id_login: LoginDto;
+  @Type(() => CreateLoginDto)
+  id_login: CreateLoginDto;
 
   @IsObject({ each: true })
   @ValidateNested({ each: true })
-  @Type(() => CarrinhoCabecaDto)
-  itens: CarrinhoCabecaDto[];
+  @Type(() => CreateCarCabDto)
+  itens: CreateCarCabDto[];
 }
+
+export class UpdateCarCabDto extends PartialType(CreateCarCabDto) {}
