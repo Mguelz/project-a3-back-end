@@ -1,8 +1,8 @@
 import {
   Column,
   Entity,
-  JoinColumn,
-  OneToOne,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { GeneroEntity } from './genero.entity';
@@ -11,10 +11,6 @@ import { GeneroEntity } from './genero.entity';
 export class CatalogoCabecaEntity {
   @PrimaryGeneratedColumn()
   id_catalogo: number;
-
-  @OneToOne(() => GeneroEntity)
-  @JoinColumn()
-  id_genero: GeneroEntity;
 
   @Column({ length: 40 })
   descricao: string;
@@ -30,4 +26,8 @@ export class CatalogoCabecaEntity {
 
   @Column({ type: 'tinyint' })
   vendido: number;
+
+  @ManyToMany(() => GeneroEntity, (genero) => genero.catalogos)
+  @JoinTable()
+  generos: GeneroEntity[];
 }

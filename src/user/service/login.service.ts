@@ -36,7 +36,7 @@ export class LoginService {
     } catch (error) {
       if (error.code === 'ER_DUP_ENTRY') {
         throw new HttpException(
-          'Algum dado informado já está registrado',
+          'Algum dado informado já está registrado.',
           HttpStatus.BAD_REQUEST,
         );
       } else {

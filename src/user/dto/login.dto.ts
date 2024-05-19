@@ -11,7 +11,7 @@ import {
 
 export class CreateLoginDto {
   @IsOptional()
-  @IsNumber()
+  // @IsNumber()
   id_login: number;
 
   @IsString()

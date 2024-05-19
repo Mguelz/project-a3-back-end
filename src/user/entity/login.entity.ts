@@ -11,6 +11,7 @@ import { IsOptional } from 'class-validator';
 
 @Entity()
 export class LoginEntity {
+  @IsOptional()
   @PrimaryGeneratedColumn()
   id_login: number;
 
