@@ -50,7 +50,6 @@ export class PerfilService {
     }
   }
 
-
   async delete(id: number): Promise<void> {
     const result = await this.perfilRepository.delete(id);
     if (result.affected === 0) {
