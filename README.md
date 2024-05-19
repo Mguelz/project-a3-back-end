@@ -4,28 +4,64 @@ Login Exemples
 
 Post
 {
-  "id_perfil": "1232",
-  "cpf": "12345678922",
-  "email": "pedro@gmail.com",
-  "senha": "Pedro@123",
-  "nome": "Pedro da Silva",
-  "data_nascimento": "1999-05-10"
+"id_perfil": "1232",
+"cpf": "12345678922",
+"email": "pedro@gmail.com",
+"senha": "Pedro@123",
+"nome": "Pedro da Silva",
+"data_nascimento": "1999-05-10"
 }
 
+---
 
+Genero Exemples
 
+Post
+{
+"id_genero": 1,
+"descricao": "Sertanejo"
+}
 
+---
 
+Catalogo Exemples
 
+Post
+{
+"descricao": "Show de Rock",
+"imagem": "imagem_do_show.jpg",
+"preco_unitario": 150.00,
+"disponivel": 100,
+"vendido": 10,
+"generos": [
+{
+"id_genero": 1,
+"descricao": "Rock"
+}
+]
+}
 
+Post
+{
+"descricao": "Show de Rock",
+"imagem": "imagem_do_show.jpg",
+"preco_unitario": 150.00,
+"disponivel": 100,
+"vendido": 10,
+"generos": [
+{
+"id_genero": 1,
+"descricao": "Rock"
+},
+{
+"id_genero": 2,
+"descricao": "Live Music"
+}
+]
+}
 
+---
 
-
-
-
-
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>

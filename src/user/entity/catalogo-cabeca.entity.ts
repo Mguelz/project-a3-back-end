@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { GeneroEntity } from './genero.entity';
+import { IsDecimal, IsOptional } from 'class-validator';
 
 @Entity()
 export class CatalogoCabecaEntity {
@@ -15,16 +16,20 @@ export class CatalogoCabecaEntity {
   @Column({ length: 40 })
   descricao: string;
 
-  @Column({ length: 100 })
+  @Column({ length: 100, nullable: true })
   iamgem: string;
 
-  @Column({ type: 'decimal', precision: 7, scale: 2 })
-  preco_unitario: number;
+  @IsOptional()
+  @IsDecimal(
+    { decimal_digits: '7,2' },
+    { message: 'O preço unitário deve ser um número decimal' },
+  )
+  preco_unitario?: number;
 
-  @Column({ type: 'decimal', precision: 7, scale: 2 })
-  disopnivel: number;
+  @Column({ type: 'int' })
+  disponivel: number;
 
-  @Column({ type: 'tinyint' })
+  @Column({ type: 'int' })
   vendido: number;
 
   @ManyToMany(() => GeneroEntity, (genero) => genero.catalogos)

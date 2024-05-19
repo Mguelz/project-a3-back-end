@@ -1,24 +1,44 @@
-import { IsNumber, IsString, IsDecimal, IsInt } from 'class-validator';
-import { GeneroDto } from './genero.dto';
+import {
+  IsNumber,
+  IsString,
+  IsDecimal,
+  IsArray,
+  ArrayMinSize,
+  ValidateNested,
+  IsOptional,
+  Length,
+} from 'class-validator';
+import { CreateGeneroDto } from './genero.dto';
+import { PartialType } from '@nestjs/mapped-types';
+import { Type } from 'class-transformer';
 
-export class CatalogoCabecaDto {
+export class CreateCatalogoDto {
   @IsNumber()
+  @Length(1, 5, { message: 'O ID do login deve ter entre 1 e 5 caracteres' })
   id_catalogo: number;
-
-  id_genero: GeneroDto; // Usar o DTO correspondente se o relacionamento exigir
 
   @IsString()
   descricao: string;
 
+  @IsOptional()
   @IsString()
   iamgem: string;
 
   @IsDecimal({ decimal_digits: '7,2' })
   preco_unitario: number;
 
-  @IsDecimal({ decimal_digits: '7,2' })
-  disopnivel: number;
+  @IsNumber()
+  disponivel: number;
 
-  @IsInt()
+  @IsNumber()
   vendido: number;
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMinSize(1)
+  @ValidateNested({ each: true })
+  @Type(() => CreateGeneroDto)
+  generos: CreateGeneroDto[];
 }
+
+export class UpdateCatalogoDto extends PartialType(CreateCatalogoDto) {}
