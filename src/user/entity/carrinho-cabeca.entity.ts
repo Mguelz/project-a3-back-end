@@ -1,12 +1,5 @@
-import {
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  OneToMany,
-} from 'typeorm';
+import { Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { LoginEntity } from '../entity/login.entity';
-import { CarrinhoItensEntity } from '../entity/carrinho-itens.entity';
 
 @Entity()
 export class CarrinhoCabecaEntity {
@@ -14,12 +7,5 @@ export class CarrinhoCabecaEntity {
   id_carrinhoCabeca: number;
 
   @OneToOne(() => LoginEntity, (login) => login.carrinhoCabeca)
-  @JoinColumn()
   login: LoginEntity;
-
-  @OneToMany(
-    () => CarrinhoItensEntity,
-    (carrinhoIten) => carrinhoIten.carrinhoCabeca,
-  )
-  itens: CarrinhoItensEntity[];
 }

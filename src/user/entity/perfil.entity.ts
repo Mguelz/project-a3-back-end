@@ -1,7 +1,6 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -16,6 +15,5 @@ export class PerfilEntity {
   descricao: string;
 
   @OneToOne(() => LoginEntity, (login) => login.perfil)
-  @JoinColumn()
   login: LoginEntity;
 }

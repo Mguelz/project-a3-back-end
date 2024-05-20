@@ -7,39 +7,32 @@ import {
 } from 'typeorm';
 import { PerfilEntity } from '../entity/perfil.entity';
 import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
-import { IsOptional } from 'class-validator';
 
 @Entity()
 export class LoginEntity {
-  @IsOptional()
   @PrimaryGeneratedColumn()
   id_login: number;
 
-  @OneToOne(() => PerfilEntity, (perfil) => perfil.login)
-  @JoinColumn()
+  @OneToOne(() => PerfilEntity)
+  @JoinColumn({ name: 'id_perfil' })
   perfil: PerfilEntity;
 
-  @IsOptional()
-  @OneToOne(
-    () => CarrinhoCabecaEntity,
-    (carrinhoCabeca) => carrinhoCabeca.login,
-  )
-  @JoinColumn()
+  @OneToOne(() => CarrinhoCabecaEntity)
+  @JoinColumn({ name: 'id_carrinhoCabeca' })
   carrinhoCabeca: CarrinhoCabecaEntity;
 
-  @Column({ unique: true, length: 14 })
+  @Column({ length: 11 })
   cpf: string;
 
-  @IsOptional()
-  @Column({ unique: true, length: 40 })
-  email: string;
+  @Column({ length: 40, nullable: true })
+  email?: string;
 
-  @Column({ length: 60 })
+  @Column({ length: 20 })
   senha: string;
 
   @Column({ length: 40 })
   nome: string;
 
-  @Column({ type: 'date' })
-  data_nascimento: Date;
+  @Column({ type: 'date', nullable: true })
+  data_nascimento?: Date;
 }

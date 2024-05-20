@@ -56,6 +56,7 @@ export class CatalogoService {
 
       return await this.catalogoRepository.save(catalogo);
     } catch (error) {
+      console.error(error);
       throw new HttpException(
         'Erro ao criar o registro. Tente novamente mais tarde.',
         HttpStatus.INTERNAL_SERVER_ERROR,

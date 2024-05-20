@@ -28,15 +28,15 @@ Catalogo Exemples
 
 Post
 {
-"descricao": "Show de Rock",
-"imagem": "imagem_do_show.jpg",
+"id_catalogo": 123,
+"descricao": "Show de Sertanejo",
 "preco_unitario": 150.00,
-"disponivel": 100,
-"vendido": 10,
+"disponivel": 1000,
+"vendido": 200,
 "generos": [
 {
 "id_genero": 1,
-"descricao": "Rock"
+"descricao": "sertanejo"
 }
 ]
 }

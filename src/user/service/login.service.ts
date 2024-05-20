@@ -3,12 +3,20 @@ import { LoginEntity } from '../entity/login.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateLoginDto, UpdateLoginDto } from '../dto/login.dto';
+import { PerfilEntity } from '../entity/perfil.entity';
+import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
 
 @Injectable()
 export class LoginService {
   constructor(
     @InjectRepository(LoginEntity)
-    private loginRepository: Repository<LoginEntity>,
+    private readonly loginRepository: Repository<LoginEntity>,
+
+    @InjectRepository(PerfilEntity)
+    private readonly perfilRepository: Repository<PerfilEntity>,
+
+    @InjectRepository(CarrinhoCabecaEntity)
+    private readonly carrinhoCabecaRepository: Repository<CarrinhoCabecaEntity>,
   ) {}
 
   async findAll(): Promise<LoginEntity[]> {
@@ -30,28 +38,71 @@ export class LoginService {
 
   async create(createLoginDto: CreateLoginDto): Promise<LoginEntity> {
     try {
-      return await this.loginRepository.save(
-        this.loginRepository.create(createLoginDto),
-      );
-    } catch (error) {
-      if (error.code === 'ER_DUP_ENTRY') {
+      const perfil = await this.perfilRepository.findOne({
+        where: { id_perfil: createLoginDto.perfil.id_perfil },
+      });
+
+      if (!perfil) {
+        throw new HttpException(`Perfil não encontrado.`, HttpStatus.NOT_FOUND);
+      }
+
+      const carrinhoCabeca = await this.carrinhoCabecaRepository.findOne({
+        where: {
+          id_carrinhoCabeca: createLoginDto.carrinhoCabeca.id_carrinhoCabeca,
+        },
+      });
+
+      if (!carrinhoCabeca) {
         throw new HttpException(
-          'Algum dado informado já está registrado.',
-          HttpStatus.BAD_REQUEST,
-        );
-      } else {
-        throw new HttpException(
-          'Erro ao criar o registro. Tente novamente mais tarde.',
-          HttpStatus.INTERNAL_SERVER_ERROR,
+          `Carrinho Cabeça não encontrado.`,
+          HttpStatus.NOT_FOUND,
         );
       }
+
+      const login = this.loginRepository.create({
+        ...createLoginDto,
+        perfil: perfil,
+        carrinhoCabeca: carrinhoCabeca,
+      });
+
+      return await this.loginRepository.save(login);
+    } catch (error) {
+      throw new HttpException(
+        'Erro ao criar o registro. Tente novamente mais tarde.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
   async update(id: number, updateLoginDto: UpdateLoginDto): Promise<void> {
-    const result = await this.loginRepository.update(id, updateLoginDto);
+    const perfil = await this.perfilRepository.findOne({
+      where: { id_perfil: updateLoginDto.perfil.id_perfil },
+    });
+
+    if (!perfil) {
+      throw new HttpException(`Perfil não encontrado.`, HttpStatus.NOT_FOUND);
+    }
+    const carrinhoCabeca = await this.carrinhoCabecaRepository.findOne({
+      where: {
+        id_carrinhoCabeca: updateLoginDto.carrinhoCabeca.id_carrinhoCabeca,
+      },
+    });
+
+    if (!carrinhoCabeca) {
+      throw new HttpException(
+        `Carrinho Cabeça não encontrado.`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    const result = await this.loginRepository.update(id, {
+      ...updateLoginDto,
+      perfil: perfil,
+      carrinhoCabeca: carrinhoCabeca,
+    });
+
     if (result.affected === 0) {
-      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
+      throw new HttpException('Login não encontrado.', HttpStatus.NOT_FOUND);
     }
   }
 

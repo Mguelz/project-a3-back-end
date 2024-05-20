@@ -1,4 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
+import { Type } from 'class-transformer';
 import {
   IsString,
   IsEmail,
@@ -7,20 +8,24 @@ import {
   IsNumber,
   IsDateString,
   IsOptional,
+  ValidateNested,
 } from 'class-validator';
+import { CreatePerfilDto } from './perfil.dto';
+import { CreateCarCabDto } from './carrinho-cabeca.dto';
 
 export class CreateLoginDto {
   @IsOptional()
-  // @IsNumber()
-  id_login: number;
+  @IsNumber()
+  id_login?: number;
 
-  @IsString()
-  @Length(1, 4, { message: 'O ID do login deve ter entre 1 e 4 caracteres' })
-  id_perfil: number;
+  @ValidateNested()
+  @Type(() => CreatePerfilDto)
+  perfil: CreatePerfilDto;
 
   @IsOptional()
-  @IsNumber()
-  id_carrinhoCabeca: number;
+  @ValidateNested()
+  @Type(() => CreateCarCabDto)
+  carrinhoCabeca: CreateCarCabDto;
 
   @IsString()
   @Length(11, 14, { message: 'O CPF deve ter entre 11 e 14 caracteres' })

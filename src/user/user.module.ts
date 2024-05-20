@@ -15,6 +15,7 @@ import { GeneroService } from './service/genero.service';
 import { GeneroController } from './controller/genero.controller';
 import { CatalogoCabecaEntity } from './entity/catalogo-cabeca.entity';
 import { GeneroEntity } from './entity/genero.entity';
+import { CarrinhoCabecaEntity } from './entity/carrinho-cabeca.entity';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { GeneroEntity } from './entity/genero.entity';
       LoginEntity,
       CatalogoCabecaEntity,
       GeneroEntity,
+      CarrinhoCabecaEntity,
     ]),
   ],
   controllers: [
@@ -32,6 +34,7 @@ import { GeneroEntity } from './entity/genero.entity';
     LoginController,
     CatalogoController,
     GeneroController,
+    CarrinhoCabecaEntity,
   ],
   providers: [
     AppService,
