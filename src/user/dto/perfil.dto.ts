@@ -33,3 +33,4 @@ export class CreatePerfilDto {
 }
 
 export class UpdatePerfilDto extends PartialType(CreatePerfilDto) {}
+ 
