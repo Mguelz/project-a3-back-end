@@ -1,11 +1,12 @@
-import { Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { LoginEntity } from '../entity/login.entity';
+import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { PerfilEntity } from './perfil.entity';
 
 @Entity()
-export class CarrinhoCabecaEntity {
+export class CarrinhoEntity {
   @PrimaryGeneratedColumn()
   id_carrinhoCabeca: number;
 
-  @OneToOne(() => LoginEntity, (login) => login.carrinhoCabeca)
-  login: LoginEntity;
+  @OneToOne(() => PerfilEntity, (perfil) => perfil.carrinhoCabeca)
+  @JoinColumn()
+  login: PerfilEntity;
 }

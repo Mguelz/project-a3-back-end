@@ -16,6 +16,8 @@ import { GeneroController } from './controller/genero.controller';
 import { CatalogoCabecaEntity } from './entity/catalogo-cabeca.entity';
 import { GeneroEntity } from './entity/genero.entity';
 import { CarrinhoCabecaEntity } from './entity/carrinho-cabeca.entity';
+import { CarrinhoController } from './controller/carrinho.controller';
+import { CarrinhoService } from './service/carrinho.service';
 
 @Module({
   imports: [
@@ -34,7 +36,7 @@ import { CarrinhoCabecaEntity } from './entity/carrinho-cabeca.entity';
     LoginController,
     CatalogoController,
     GeneroController,
-    CarrinhoCabecaEntity,
+    CarrinhoController,
   ],
   providers: [
     AppService,
@@ -42,6 +44,7 @@ import { CarrinhoCabecaEntity } from './entity/carrinho-cabeca.entity';
     LoginService,
     CatalogoService,
     GeneroService,
+    CarrinhoService,
   ],
 })
 export class UserModule {}

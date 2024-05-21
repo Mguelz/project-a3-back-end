@@ -6,33 +6,24 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PerfilEntity } from '../entity/perfil.entity';
-import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
+import { CarrinhoEntity } from './carrinho-cabeca.entity';
 
 @Entity()
 export class LoginEntity {
   @PrimaryGeneratedColumn()
   id_login: number;
 
-  @OneToOne(() => PerfilEntity)
-  @JoinColumn({ name: 'id_perfil' })
-  perfil: PerfilEntity;
+  @Column({ unique: true, length: 40 })
+  email: string;
 
-  @OneToOne(() => CarrinhoCabecaEntity)
-  @JoinColumn({ name: 'id_carrinhoCabeca' })
-  carrinhoCabeca: CarrinhoCabecaEntity;
-
-  @Column({ length: 11 })
-  cpf: string;
-
-  @Column({ length: 40, nullable: true })
-  email?: string;
-
-  @Column({ length: 20 })
+  @Column({ length: 60 })
   senha: string;
 
-  @Column({ length: 40 })
-  nome: string;
+  @OneToOne(() => PerfilEntity)
+  @JoinColumn()
+  perfil: PerfilEntity;
 
-  @Column({ type: 'date', nullable: true })
-  data_nascimento?: Date;
+  @OneToOne(() => CarrinhoEntity)
+  @JoinColumn({ name: 'id_carrinhoCabeca' })
+  carrinhoCabeca: CarrinhoEntity;
 }

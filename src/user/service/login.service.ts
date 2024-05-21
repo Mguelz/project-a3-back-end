@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateLoginDto, UpdateLoginDto } from '../dto/login.dto';
 import { PerfilEntity } from '../entity/perfil.entity';
-import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
+import { CarrinhoEntity } from '../entity/carrinho-cabeca.entity';
 
 @Injectable()
 export class LoginService {
@@ -15,8 +15,8 @@ export class LoginService {
     @InjectRepository(PerfilEntity)
     private readonly perfilRepository: Repository<PerfilEntity>,
 
-    @InjectRepository(CarrinhoCabecaEntity)
-    private readonly carrinhoCabecaRepository: Repository<CarrinhoCabecaEntity>,
+    @InjectRepository(CarrinhoEntity)
+    private readonly carrinhoCabecaRepository: Repository<CarrinhoEntity>,
   ) {}
 
   async findAll(): Promise<LoginEntity[]> {
@@ -46,12 +46,6 @@ export class LoginService {
         throw new HttpException(`Perfil não encontrado.`, HttpStatus.NOT_FOUND);
       }
 
-      const carrinhoCabeca = await this.carrinhoCabecaRepository.findOne({
-        where: {
-          id_carrinhoCabeca: createLoginDto.carrinhoCabeca.id_carrinhoCabeca,
-        },
-      });
-
       if (!carrinhoCabeca) {
         throw new HttpException(
           `Carrinho Cabeça não encontrado.`,
@@ -62,7 +56,7 @@ export class LoginService {
       const login = this.loginRepository.create({
         ...createLoginDto,
         perfil: perfil,
-        carrinhoCabeca: carrinhoCabeca,
+        carrinhoCabeca: CarrinhoEntity,
       });
 
       return await this.loginRepository.save(login);

@@ -8,52 +8,44 @@ import { CreatePerfilDto, UpdatePerfilDto } from '../dto/perfil.dto';
 export class PerfilService {
   constructor(
     @InjectRepository(PerfilEntity)
-    private perfilRepository: Repository<PerfilEntity>,
+    private readonly perfilRepository: Repository<PerfilEntity>,
   ) {}
 
   async findAll(): Promise<PerfilEntity[]> {
-    return await this.perfilRepository.find({ relations: ['login'] });
+    return await this.perfilRepository.find();
   }
 
   async findOne(id: number): Promise<PerfilEntity> {
-    const perfil = await this.perfilRepository.findOne({
-      where: { id_perfil: id },
-      relations: ['login'],
-    });
+    const perfil = await this.perfilRepository.findOne(id);
     if (!perfil) {
-      throw new HttpException('Usuário não encontrado.', HttpStatus.NOT_FOUND);
+      throw new HttpException('Perfil não encontrado.', HttpStatus.NOT_FOUND);
     }
     return perfil;
   }
 
   async create(createPerfilDto: CreatePerfilDto): Promise<PerfilEntity> {
     try {
-      return await this.perfilRepository.save(
-        this.perfilRepository.create(createPerfilDto),
-      );
+      const perfil = this.perfilRepository.create(createPerfilDto);
+      return await this.perfilRepository.save(perfil);
     } catch (error) {
-      if (error.code === 'ER_DUP_ENTRY') {
-        throw new HttpException('E-mail já registrado', HttpStatus.BAD_REQUEST);
-      } else {
-        throw new HttpException(
-          'Erro ao criar o registro. Tente novamente mais tarde.',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }
+      throw new HttpException(
+        'Erro ao criar o registro. Tente novamente mais tarde.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 
   async update(id: number, updatePerfilDto: UpdatePerfilDto): Promise<void> {
     const result = await this.perfilRepository.update(id, updatePerfilDto);
     if (result.affected === 0) {
-      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
+      throw new HttpException('Perfil não encontrado.', HttpStatus.NOT_FOUND);
     }
   }
 
   async delete(id: number): Promise<void> {
     const result = await this.perfilRepository.delete(id);
     if (result.affected === 0) {
-      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
+      throw new HttpException(`Perfil não encontrado.`, HttpStatus.NOT_FOUND);
     }
   }
 }
