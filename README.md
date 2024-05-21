@@ -4,12 +4,8 @@ Login Exemples
 
 Post
 {
-"id_perfil": "1232",
-"cpf": "12345678922",
-"email": "pedro@gmail.com",
-"senha": "Pedro@123",
-"nome": "Pedro da Silva",
-"data_nascimento": "1999-05-10"
+  "email": "miguel@gmail.com",
+  "senha": "Miguel@12345"
 }
 
 ---
@@ -23,6 +19,21 @@ Post
 }
 
 ---
+Perfil Exemples
+
+Post
+{
+  "cpf": "12345678901",
+  "nome": "Miguel Arcanjo",
+  "data_nascimento": "1990-01-01",
+  "cargo": "Administrador",
+  "login": {
+    "email": "miguel@gmail.com",
+    "senha": "Miguel@12345"
+  }
+}
+
+---s
 
 Catalogo Exemples
 

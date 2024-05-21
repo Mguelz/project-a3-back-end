@@ -1,12 +1,16 @@
 import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PerfilEntity } from './perfil.entity';
+import { LoginEntity } from './login.entity';
 
+// esta classe esta faltando o relacionamento com as outras classes
 @Entity()
-export class CarrinhoEntity {
+export class CarrinhoCabecaEntity {
   @PrimaryGeneratedColumn()
-  id_carrinhoCabeca: number;
+  id_carrinho: number;
 
-  @OneToOne(() => PerfilEntity, (perfil) => perfil.carrinhoCabeca)
-  @JoinColumn()
-  login: PerfilEntity;
+  // @OneToOne(() => PerfilEntity, (perfil) => perfil.carrinhoCabeca)
+  // perfil: PerfilEntity;
+
+  // @OneToOne(() => LoginEntity, (login) => login.carrinhoCabeca)
+  // login: LoginEntity;
 }

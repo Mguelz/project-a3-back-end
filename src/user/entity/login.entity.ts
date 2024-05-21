@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PerfilEntity } from '../entity/perfil.entity';
-import { CarrinhoEntity } from './carrinho-cabeca.entity';
+import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
 
 @Entity()
 export class LoginEntity {
@@ -19,11 +19,11 @@ export class LoginEntity {
   @Column({ length: 60 })
   senha: string;
 
-  @OneToOne(() => PerfilEntity)
+  @OneToOne(() => PerfilEntity, (perfil) => perfil.login)
   @JoinColumn()
   perfil: PerfilEntity;
 
-  @OneToOne(() => CarrinhoEntity)
-  @JoinColumn({ name: 'id_carrinhoCabeca' })
-  carrinhoCabeca: CarrinhoEntity;
+  // @OneToOne(() => CarrinhoCabecaEntity)
+  // @JoinColumn({ name: 'id_carrinhoCabeca' })
+  // carrinhoCabeca: CarrinhoCabecaEntity;
 }

@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateLoginDto, UpdateLoginDto } from '../dto/login.dto';
 import { PerfilEntity } from '../entity/perfil.entity';
-import { CarrinhoEntity } from '../entity/carrinho-cabeca.entity';
+import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
 
 @Injectable()
 export class LoginService {
@@ -13,52 +13,28 @@ export class LoginService {
     private readonly loginRepository: Repository<LoginEntity>,
 
     @InjectRepository(PerfilEntity)
-    private readonly perfilRepository: Repository<PerfilEntity>,
-
-    @InjectRepository(CarrinhoEntity)
-    private readonly carrinhoCabecaRepository: Repository<CarrinhoEntity>,
+    private readonly PerfilEntity: Repository<PerfilEntity>,
   ) {}
 
   async findAll(): Promise<LoginEntity[]> {
-    return await this.loginRepository.find({
-      relations: ['perfil', 'carrinhoCabeca'],
-    });
+    return await this.loginRepository.find();
   }
 
-  async findOne(id: number): Promise<LoginEntity> {
-    const login = await this.loginRepository.findOne({
-      where: { id_login: id },
-      relations: ['perfil', 'carrinhoCabeca'],
+  async findOne(id: number): Promise<PerfilEntity> {
+    const user = await this.PerfilEntity.findOne({
+      where: { id_perfil: id },
+      relations: ['perfil'],
     });
-    if (!login) {
-      throw new HttpException('Usuário não encontrado.', HttpStatus.NOT_FOUND);
+
+    if (!user) {
+      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
     }
-    return login;
+    return user;
   }
 
   async create(createLoginDto: CreateLoginDto): Promise<LoginEntity> {
     try {
-      const perfil = await this.perfilRepository.findOne({
-        where: { id_perfil: createLoginDto.perfil.id_perfil },
-      });
-
-      if (!perfil) {
-        throw new HttpException(`Perfil não encontrado.`, HttpStatus.NOT_FOUND);
-      }
-
-      if (!carrinhoCabeca) {
-        throw new HttpException(
-          `Carrinho Cabeça não encontrado.`,
-          HttpStatus.NOT_FOUND,
-        );
-      }
-
-      const login = this.loginRepository.create({
-        ...createLoginDto,
-        perfil: perfil,
-        carrinhoCabeca: CarrinhoEntity,
-      });
-
+      const login = this.loginRepository.create(createLoginDto);
       return await this.loginRepository.save(login);
     } catch (error) {
       throw new HttpException(
@@ -69,32 +45,7 @@ export class LoginService {
   }
 
   async update(id: number, updateLoginDto: UpdateLoginDto): Promise<void> {
-    const perfil = await this.perfilRepository.findOne({
-      where: { id_perfil: updateLoginDto.perfil.id_perfil },
-    });
-
-    if (!perfil) {
-      throw new HttpException(`Perfil não encontrado.`, HttpStatus.NOT_FOUND);
-    }
-    const carrinhoCabeca = await this.carrinhoCabecaRepository.findOne({
-      where: {
-        id_carrinhoCabeca: updateLoginDto.carrinhoCabeca.id_carrinhoCabeca,
-      },
-    });
-
-    if (!carrinhoCabeca) {
-      throw new HttpException(
-        `Carrinho Cabeça não encontrado.`,
-        HttpStatus.NOT_FOUND,
-      );
-    }
-
-    const result = await this.loginRepository.update(id, {
-      ...updateLoginDto,
-      perfil: perfil,
-      carrinhoCabeca: carrinhoCabeca,
-    });
-
+    const result = await this.loginRepository.update(id, updateLoginDto);
     if (result.affected === 0) {
       throw new HttpException('Login não encontrado.', HttpStatus.NOT_FOUND);
     }
@@ -103,7 +54,7 @@ export class LoginService {
   async delete(id: number): Promise<void> {
     const result = await this.loginRepository.delete(id);
     if (result.affected === 0) {
-      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
+      throw new HttpException(`Login não encontrado.`, HttpStatus.NOT_FOUND);
     }
   }
 }

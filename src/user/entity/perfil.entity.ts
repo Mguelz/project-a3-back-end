@@ -1,6 +1,12 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { LoginEntity } from '../entity/login.entity';
-import { CarrinhoEntity } from './carrinho-cabeca.entity';
+import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
 
 @Entity()
 export class PerfilEntity {
@@ -13,15 +19,17 @@ export class PerfilEntity {
   @Column({ length: 40 })
   nome: string;
 
-  @Column({ length: 40 })
+  @Column()
   data_nascimento: Date;
 
   @Column({ length: 40 })
   cargo: string;
 
   @OneToOne(() => LoginEntity, (login) => login.perfil)
+  @JoinColumn()
   login: LoginEntity;
 
-  @OneToOne(() => CarrinhoEntity, (carrinho) => carrinho.login)
-  carrinhoCabeca: CarrinhoEntity;
+  // @OneToOne(() => CarrinhoCabecaEntity, (carrinho) => carrinho.perfil)
+  // @JoinColumn()
+  // carrinhoCabeca: CarrinhoCabecaEntity;
 }
