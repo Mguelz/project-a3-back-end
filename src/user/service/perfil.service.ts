@@ -36,16 +36,17 @@ export class PerfilService {
       perfil.cpf = createPerfilDto.cpf;
       perfil.data_nascimento = createPerfilDto.data_nascimento;
       perfil.cargo = createPerfilDto.cargo;
-
-      // Se o login estiver presente no DTO, você também precisa criar um objeto de LoginEntity correspondente
-      if (createPerfilDto.login) {
-        const login = new LoginEntity();
-        login.email = createPerfilDto.login.email;
-        login.senha = createPerfilDto.login.senha;
-
-        // Defina o login no perfil
-        perfil.login = login;
-      }
+    
+      console.log("abobrinha", createPerfilDto.loginIdLogin )
+      // // Se o login estiver presente no DTO, você também precisa criar um objeto de LoginEntity correspondente
+      // if (createPerfilDto.login) {
+      //   const login = new LoginEntity();
+      //   login.email = createPerfilDto.login.email;
+      //   login.senha = createPerfilDto.login.senha;
+      //   console.log("batata ",login.email, login.senha)
+      //   // Defina o login no perfil
+      //   perfil.login = login;
+      // }
       return await this.perfilRepository.save(
         this.perfilRepository.create(createPerfilDto),
       );

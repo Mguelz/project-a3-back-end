@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -29,7 +30,7 @@ export class PerfilEntity {
   @JoinColumn()
   login: LoginEntity;
 
-  // @OneToOne(() => CarrinhoCabecaEntity, (carrinho) => carrinho.perfil)
-  // @JoinColumn()
-  // carrinhoCabeca: CarrinhoCabecaEntity;
+  @OneToMany(() => CarrinhoCabecaEntity, (carrinho) => carrinho.perfil)
+  @JoinColumn()
+  carrinhoCabeca: CarrinhoCabecaEntity;
 }

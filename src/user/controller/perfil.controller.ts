@@ -25,7 +25,8 @@ export class PerfilController {
   }
 
   @Post()
-  async create(@Body() createPerfilDto: CreatePerfilDto): Promise<any> {
+  async create( @Body() createPerfilDto: CreatePerfilDto): Promise<any> {
+    console.log("beterraba")
     return this.perfilService.create(createPerfilDto);
   }
 

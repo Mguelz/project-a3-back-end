@@ -2,6 +2,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import {
   IsDateString,
   IsEmail,
+  IsNumber,
   IsOptional,
   IsString,
   Length,
@@ -10,6 +11,7 @@ import {
 } from 'class-validator';
 import { CreateLoginDto } from './login.dto';
 import { Type } from 'class-transformer';
+import { Column } from 'typeorm';
 
 export class CreatePerfilDto {
   @IsString()
@@ -26,11 +28,8 @@ export class CreatePerfilDto {
   @IsString()
   @Length(2, 20, { message: 'O cargo deve ter entre 2 e 20 caracteres' })
   cargo: string;
-
-  @ValidateNested()
-  @Type(() => CreateLoginDto)
-  login: CreateLoginDto;
+  @IsNumber()
+  loginIdLogin: CreateLoginDto;
 }
 
-export class UpdatePerfilDto extends PartialType(CreatePerfilDto) {}
- 
+export class UpdatePerfilDto extends PartialType(CreatePerfilDto) { }

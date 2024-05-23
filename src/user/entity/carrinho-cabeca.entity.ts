@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PerfilEntity } from './perfil.entity';
 import { LoginEntity } from './login.entity';
 
@@ -8,9 +8,7 @@ export class CarrinhoCabecaEntity {
   @PrimaryGeneratedColumn()
   id_carrinho: number;
 
-  // @OneToOne(() => PerfilEntity, (perfil) => perfil.carrinhoCabeca)
-  // perfil: PerfilEntity;
+  @ManyToOne(() => PerfilEntity, (perfil) => perfil.carrinhoCabeca)
+  perfil: PerfilEntity;
 
-  // @OneToOne(() => LoginEntity, (login) => login.carrinhoCabeca)
-  // login: LoginEntity;
 }
