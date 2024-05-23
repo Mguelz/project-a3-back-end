@@ -33,7 +33,7 @@ Post
   }
 }
 
----s
+---
 
 Catalogo Exemples
 
@@ -72,6 +72,28 @@ Post
 }
 
 ---
+.env
+
+DB_TYPE=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=miguel123
+DB_DATABASE=project_a3
+DB_ENTITIES=dist/**/*.entity{.ts,.js}
+DB_SYNCHRONIZE=true
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>

@@ -6,7 +6,7 @@ export class GeneroEntity {
   @PrimaryGeneratedColumn()
   id_genero: number;
 
-  @Column({ length: 100 })
+  @Column({ length: 20 })
   descricao: string;
 
   @ManyToMany(() => CatalogoCabecaEntity, (catalogo) => catalogo.generos)
