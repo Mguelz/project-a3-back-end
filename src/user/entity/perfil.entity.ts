@@ -1,7 +1,7 @@
 import {
   Column,
   Entity,
-  JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -13,23 +13,21 @@ export class PerfilEntity {
   @PrimaryGeneratedColumn()
   id_perfil: number;
 
-  @Column({ length: 14 })
-  cpf: string;
-
   @Column({ length: 40 })
   nome: string;
 
-  @Column()
+  @Column({ length: 11 })
+  cpf: string;
+
+  @Column({ type: 'date' })
   data_nascimento: Date;
 
-  @Column({ length: 40 })
+  @Column({ length: 30 })
   cargo: string;
 
   @OneToOne(() => LoginEntity, (login) => login.perfil)
-  @JoinColumn()
   login: LoginEntity;
 
-  // @OneToOne(() => CarrinhoCabecaEntity, (carrinho) => carrinho.perfil)
-  // @JoinColumn()
-  // carrinhoCabeca: CarrinhoCabecaEntity;
+  @OneToMany(() => CarrinhoCabecaEntity, (carrinho) => carrinho.perfil)
+  carrinhos: CarrinhoCabecaEntity[];
 }
