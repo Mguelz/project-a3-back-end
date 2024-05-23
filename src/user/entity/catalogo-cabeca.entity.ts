@@ -31,9 +31,9 @@ export class CatalogoCabecaEntity {
 
   @ManyToMany(() => GeneroEntity, (genero) => genero.catalogos)
   @JoinTable()
-    // name: 'catalogo_genero',
-    // joinColumn: { name: 'id_catalogo', referencedColumnName: 'id_catalogo' },
-    // inverseJoinColumn: { name: 'id_genero', referencedColumnName: 'id_genero' },
+  // name: 'catalogo_genero',
+  // joinColumn: { name: 'id_catalogo', referencedColumnName: 'id_catalogo' },
+  // inverseJoinColumn: { name: 'id_genero', referencedColumnName: 'id_genero' },
   // )
   generos: GeneroEntity[];
 
