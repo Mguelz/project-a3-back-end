@@ -12,7 +12,7 @@ export class CreateLoginDto {
   email: string;
 
   @IsString()
-  @Length(6, 60, { message: 'A senha deve ter entre 8 e 60 caracteres' })
+  @Length(6, 30, { message: 'A senha deve ter entre 6 e 30 caracteres' })
   @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/, {
     message:
       'a senha deve ter pelo menos 6 caracteres, incluindo uma pelo menos: uma letra maiúscula, uma letra minúscula, um número e um caractere especial',

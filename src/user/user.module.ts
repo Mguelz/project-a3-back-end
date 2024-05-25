@@ -13,6 +13,12 @@ import { GeneroService } from './service/genero.service';
 import { CatalogoService } from './service/catalogo.service';
 import { CarrinhoCabecaService } from './service/carrinho-cabeca.service';
 import { CarrinhoItensService } from './service/carrinho-itens.service';
+import { PerfilController } from './controller/perfil.controller';
+import { LoginController } from './controller/login.controller';
+import { GeneroController } from './controller/genero.controller';
+import { CatalogoController } from './controller/catalogo.controller';
+import { CarrinhoCabecaController } from './controller/carrinho-cabeca.controller';
+import { CarrinhoItensController } from './controller/carrinho-itens.controller';
 
 @Module({
   imports: [
@@ -26,7 +32,21 @@ import { CarrinhoItensService } from './service/carrinho-itens.service';
       CarrinhoItensEntity,
     ]),
   ],
-  controllers: [],
-  providers: [PerfilService, LoginService, GeneroService, CatalogoService, CarrinhoCabecaService, CarrinhoItensService],
+  controllers: [
+    PerfilController,
+    LoginController,
+    GeneroController,
+    CatalogoController,
+    CarrinhoCabecaController,
+    CarrinhoItensController,
+  ],
+  providers: [
+    PerfilService,
+    LoginService,
+    GeneroService,
+    CatalogoService,
+    CarrinhoCabecaService,
+    CarrinhoItensService,
+  ],
 })
 export class UserModule {}
