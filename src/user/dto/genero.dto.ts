@@ -4,7 +4,7 @@ import { IsNumber, IsString, Length, Max, Min } from 'class-validator';
 export class CreateGeneroDto {
   @IsNumber()
   @Min(1, { message: 'O ID do Genero deve ser no mínimo 1 dígito' })
-  @Max(2, { message: 'O ID do Genero deve ter no máximo 2 dígitos' })
+  @Max(99, { message: 'O ID do Genero deve ter no máximo 2 dígitos' })
   id_genero?: number;
 
   @IsString()

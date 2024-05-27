@@ -11,6 +11,7 @@ import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
 @Entity()
 export class PerfilEntity {
   @PrimaryGeneratedColumn()
+  @OneToOne(() => LoginEntity, (login) => login.perfil)
   id_perfil: number;
 
   @Column({ length: 40 })
@@ -25,8 +26,8 @@ export class PerfilEntity {
   @Column({ length: 30 })
   cargo: string;
 
-  @OneToOne(() => LoginEntity, (login) => login.perfil)
-  login: LoginEntity;
+  // @OneToOne(() => LoginEntity, (login) => login.perfil)
+  // login: LoginEntity;
 
   @OneToMany(() => CarrinhoCabecaEntity, (carrinho) => carrinho.perfil)
   carrinhos: CarrinhoCabecaEntity[];

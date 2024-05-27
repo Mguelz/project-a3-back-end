@@ -1,11 +1,13 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsInt, IsNumber, Min } from 'class-validator';
+import { IsNumber, Max, Min } from 'class-validator';
 
 export class CreateCarrinhoItensDto {
-  @IsInt()
+  @IsNumber()
+  @Min(1, { message: 'O ID do Login deve ser no mínimo 1 dígito' })
+  @Max(99999, { message: 'O ID do Login deve ter no máximo 5 dígitos' })
   carrinhoId?: number;
 
-  @IsInt()
+  @IsNumber()
   catalogoId?: number;
 
   @IsNumber(
@@ -25,7 +27,7 @@ export class CreateCarrinhoItensDto {
   @Min(0, { message: 'O preço do item deve ser maior ou igual a 0' })
   preco_item: number;
 
-  @IsInt()
+  @IsNumber()
   @Min(1, { message: 'A quantidade deve ser maior ou igual a 1' })
   quantidade: number;
 }

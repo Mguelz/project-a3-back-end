@@ -10,7 +10,7 @@ import { PerfilEntity } from '../entity/perfil.entity';
 @Entity()
 export class LoginEntity {
   @PrimaryGeneratedColumn()
-  id_login: number;
+  id_login?: number;
 
   @Column({ unique: true, length: 40 })
   email: string;
@@ -18,7 +18,7 @@ export class LoginEntity {
   @Column({ length: 60 })
   senha: string;
 
-  @OneToOne(() => PerfilEntity, (perfil) => perfil.login)
+  @OneToOne(() => PerfilEntity, (perfil) => perfil.id_perfil)
   @JoinColumn()
   perfil: PerfilEntity;
 }
