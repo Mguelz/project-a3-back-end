@@ -13,14 +13,14 @@ export class PerfilService {
 
   async findAll(): Promise<PerfilEntity[]> {
     return await this.perfilRepository.find({
-      relations: ['login', 'carrinhos'],
+      // relations: ['login', 'carrinhos'],
     });
   }
 
   async findOne(id: number): Promise<PerfilEntity> {
     const perfil = await this.perfilRepository.findOne({
       where: { id_perfil: id },
-      relations: ['login', 'carinhos'],
+      // relations: ['login', 'carinhos'],
     });
 
     if (!perfil) {

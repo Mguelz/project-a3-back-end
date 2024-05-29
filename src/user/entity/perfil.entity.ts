@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -11,6 +12,7 @@ import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
 @Entity()
 export class PerfilEntity {
   @PrimaryGeneratedColumn()
+  @OneToOne(() => LoginEntity, (login) => login.perfil)
   id_perfil: number;
 
   @Column({ length: 40 })

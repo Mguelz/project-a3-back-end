@@ -6,7 +6,7 @@ import { PartialType } from '@nestjs/mapped-types';
 export class CreateCatalogoDto {
   @IsNumber()
   @Min(1, { message: 'O ID do Catalogo deve ser no mínimo 1 dígito' })
-  @Max(6, { message: 'O ID do Catalogo deve ter no máximo 6 dígitos' })
+  @Max(999999, { message: 'O ID do Catalogo deve ter no máximo 6 dígitos' })
   id_catalogo?: number;
 
   @IsString()
