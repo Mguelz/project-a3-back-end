@@ -11,10 +11,6 @@ import {
 import { CreatePerfilDto } from './perfil.dto';
 
 export class CreateLoginDto {
-  @IsNumber()
-  @Min(1, { message: 'O ID do Login deve ser no mínimo 1 dígito' })
-  @Max(99999, { message: 'O ID do Login deve ter no máximo 5 dígitos' })
-  id_login?: number;
 
   @IsEmail()
   @Length(5, 40, { message: 'O email deve ter entre 5 e 40 caracteres' })
@@ -27,8 +23,7 @@ export class CreateLoginDto {
   })
   senha: string;
 
-  @IsNumber()
-  perfil: CreatePerfilDto;
+
 }
 
 export class UpdateLoginDto extends PartialType(CreateLoginDto) {}

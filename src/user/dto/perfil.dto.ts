@@ -3,14 +3,10 @@ import { IsDateString, IsNumber, IsString, Length, Max, Min } from 'class-valida
 import { CreateLoginDto } from './login.dto';
 
 export class CreatePerfilDto {
-  @IsNumber()
-  @Min(1, { message: 'O ID do Perfil deve ser no mínimo 1 dígito' })
-  @Max(99999, { message: 'O ID do Perfil deve ter no máximo 5 dígitos' })
-  id_perfil?: number;
 
   @IsString()
   @Length(3, 40, { message: 'O nome deve ter entre 3 e 40 caracteres' })
-  nome?: string;
+  nome: string;
 
   @IsString()
   @Length(11, 11, {
@@ -29,7 +25,7 @@ export class CreatePerfilDto {
   cargo?: string;
 
   @IsNumber()
-  login: CreateLoginDto;
+  loginIdLogin?: number;
 }
 
 export class UpdatePerfilDto extends PartialType(CreatePerfilDto) {}

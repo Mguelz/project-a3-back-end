@@ -16,14 +16,14 @@ export class LoginService {
 
   async findAll(): Promise<LoginEntity[]> {
     return await this.loginRepository.find({
-      relations: ['perfil'],
+      // relations: ['perfil'],
     });
   }
 
   async findOne(id: number): Promise<LoginEntity> {
     const login = await this.loginRepository.findOne({
       where: { id_login: id },
-      relations: ['perfil'],
+      // relations: ['perfil'],
     });
     if (!login) {
       throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);

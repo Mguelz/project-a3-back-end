@@ -19,6 +19,5 @@ export class LoginEntity {
   senha: string;
 
   @OneToOne(() => PerfilEntity, (perfil) => perfil.id_perfil)
-  @JoinColumn()
-  perfil: PerfilEntity;
+  perfil: PerfilEntity[];
 }
