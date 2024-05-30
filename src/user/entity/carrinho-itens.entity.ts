@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { CarrinhoCabecaEntity } from "./carrinho-cabeca.entity";
 import { CatalogoCabecaEntity } from "./catalogo-cabeca.entity";
 
@@ -9,9 +9,11 @@ export class CarrinhoItensEntity {
 
   @ManyToOne(() => CarrinhoCabecaEntity, (carrinho) => carrinho.itens)
   carrinho: CarrinhoCabecaEntity;
+  // carrinho: CarrinhoCabecaEntity[];
 
-  @ManyToOne(() => CatalogoCabecaEntity, (catalogo) => catalogo.catalogoItens)
+  @ManyToMany(() => CatalogoCabecaEntity, (catalogo) => catalogo.carrinhoItens)
   catalogos: CatalogoCabecaEntity;
+  // catalogos: CatalogoCabecaEntity[];
 
   @Column({ type: 'numeric', precision: 7, scale: 2 })
   desconto: number;

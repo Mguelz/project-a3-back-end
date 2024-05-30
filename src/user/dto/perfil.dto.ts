@@ -26,6 +26,9 @@ export class CreatePerfilDto {
 
   @IsNumber()
   loginIdLogin?: number;
+
+  @IsNumber()
+  carrinhoIdCarrinho?: number;
 }
 
 export class UpdatePerfilDto extends PartialType(CreatePerfilDto) {}

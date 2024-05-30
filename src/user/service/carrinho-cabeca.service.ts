@@ -16,14 +16,14 @@ export class CarrinhoCabecaService {
 
   async findAll(): Promise<CarrinhoCabecaEntity[]> {
     return await this.carrinhoCabecaRepository.find({
-      relations: ['perfil', 'itens'],
+      // relations: ['perfil', 'itens'],
     });
   }
 
   async findOne(id: number): Promise<CarrinhoCabecaEntity> {
     const carrinho = await this.carrinhoCabecaRepository.findOne({
       where: { id_carrinho: id },
-      relations: ['perfil', 'itens'],
+      // relations: ['perfil', 'itens'],
     });
     if (!carrinho) {
       throw new HttpException(`Carrinho não encontrado.`, HttpStatus.NOT_FOUND);

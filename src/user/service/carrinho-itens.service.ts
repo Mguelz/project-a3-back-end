@@ -12,18 +12,18 @@ export class CarrinhoItensService {
   constructor(
     @InjectRepository(CarrinhoItensEntity)
     private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
-  ) {}
+  ) { }
 
   async findAll(): Promise<CarrinhoItensEntity[]> {
     return await this.carrinhoItensRepository.find({
-      relations: ['carrinhos', 'catalogos'],
+      // relations: ['carrinhos', 'catalogos'],
     });
   }
 
   async findOne(id: number): Promise<CarrinhoItensEntity> {
     const itens = await this.carrinhoItensRepository.findOne({
       where: { id_carrinho_item: id },
-      relations: ['carrinhos', 'catalogos'],
+      // relations: ['carrinhos', 'catalogos'],
     });
     if (!itens) {
       throw new HttpException(`Carrinho não encontrado.`, HttpStatus.NOT_FOUND);
@@ -35,6 +35,19 @@ export class CarrinhoItensService {
     createCarrinhoItensDto: CreateCarrinhoItensDto,
   ): Promise<CarrinhoItensEntity> {
     try {
+      // importar o catalogo aqui, para levar para o banco aqui
+
+      //código base
+
+      //   if (!user) {
+      //     throw new NotFoundException(`Usuário não encontrado.`);
+      //   }
+      //   const newFiliacao = this.filiacaoRepository.create({
+      //     ...createFiliacaoDto,
+      //     user: user, // Associando o usuário encontrado ao novo registro de filiação
+      //   });
+      //   return await this.filiacaoRepository.save(newFiliacao);
+      // }
       return await this.carrinhoItensRepository.save(
         this.carrinhoItensRepository.create(createCarrinhoItensDto),
       );

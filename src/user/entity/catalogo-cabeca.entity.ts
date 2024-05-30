@@ -30,16 +30,8 @@ export class CatalogoCabecaEntity {
   imagem: string;
 
   @ManyToMany(() => GeneroEntity, (genero) => genero.catalogos)
-  @JoinTable()
-  // name: 'catalogo_genero',
-  // joinColumn: { name: 'id_catalogo', referencedColumnName: 'id_catalogo' },
-  // inverseJoinColumn: { name: 'id_genero', referencedColumnName: 'id_genero' },
-  // )
   generos: GeneroEntity[];
 
-  @OneToMany(
-    () => CarrinhoItensEntity,
-    (carrinhoItens) => carrinhoItens.catalogos,
-  )
-  catalogoItens: CarrinhoItensEntity[];
+  @ManyToMany(() => CarrinhoItensEntity, (item) => item.catalogos)
+  carrinhoItens: CarrinhoItensEntity[];
 }
