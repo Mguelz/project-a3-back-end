@@ -38,14 +38,14 @@ export class CarrinhoItensService {
 
   async findAll(): Promise<CarrinhoItensEntity[]> {
     return await this.carrinhoItensRepository.find({
-      relations: ['carrinho', 'catalogo'],
+      relations: ['catalogo'],
     });
   }
 
   async findOne(id: number): Promise<CarrinhoItensEntity> {
     const carrinhoItem = await this.carrinhoItensRepository.findOne({
       where: { id_carrinho_item: id },
-      relations: ['carrinho', 'catalogo'],
+      relations: ['catalogo'],
     });
     if (!carrinhoItem) {
       throw new NotFoundException(`Item do carrinho não encontrado.`);

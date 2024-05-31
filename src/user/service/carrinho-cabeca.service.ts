@@ -47,19 +47,19 @@ export class CarrinhoCabecaService {
       throw new NotFoundException(`Perfil não encontrado.`);
     }
 
-    // itens
-    const itens = await this.itensService.findOne(
-      createCarrinhoCabecaDto.itensIdItens,
-    );
+    // // itens
+    // const itens = await this.itensService.findOne(
+    //   createCarrinhoCabecaDto.itensIdItens,
+    // );
 
-    if (!itens) {
-      throw new NotFoundException(`Itens Carrinho não encontrado.`);
-    }
+    // if (!itens) {
+    //   throw new NotFoundException(`Itens Carrinho não encontrado.`);
+    // }
     
     const novoCarrinhoCabeca = this.carrinhoCabecaRepository.create({
       ...createCarrinhoCabecaDto,
       perfil: perfil,
-      itens: itens,
+      // itens: itens,
     });
 
     return await this.carrinhoCabecaRepository.save(novoCarrinhoCabeca);

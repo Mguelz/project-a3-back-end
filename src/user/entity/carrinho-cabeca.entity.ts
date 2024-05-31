@@ -11,6 +11,6 @@ export class CarrinhoCabecaEntity {
   perfil: PerfilEntity;
 
   @OneToMany(() => CarrinhoItensEntity, (item) => item.carrinho)
-  @JoinColumn()
-  itens: CarrinhoItensEntity;
+  itens: CarrinhoItensEntity[];
+  
 }
