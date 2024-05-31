@@ -28,7 +28,7 @@ export class PerfilService {
   async findOne(id: number): Promise<PerfilEntity> {
     const perfil = await this.perfilRepository.findOne({
       where: { id_perfil: id },
-      relations: ['login', 'carinhos'],
+      relations: ['login', 'carrinhos'],
     });
 
     if (!perfil) {
@@ -45,24 +45,37 @@ export class PerfilService {
       throw new NotFoundException(`Login não encontrado.`);
     }
 
-    const newPerfil = this.perfilRepository.create({
+    const novoPerfil = this.perfilRepository.create({
       ...createPerfilDto,
       login: login, // Associando o login encontrado ao novo registro de perfil
     });
-    return await this.perfilRepository.save(newPerfil);
+    return await this.perfilRepository.save(novoPerfil);
   }
 
-  async update(id: number, updatePerfilDto: UpdatePerfilDto): Promise<void> {
-    const result = await this.perfilRepository.update(id, updatePerfilDto);
-    if (result.affected === 0) {
-      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
+  async update(
+    id: number,
+    updatePerfilDto: UpdatePerfilDto,
+  ): Promise<PerfilEntity> {
+    const perfil = await this.findOne(id);
+
+    if (updatePerfilDto.loginIdLogin) {
+      const login = await this.loginRepository.findOne({
+        where: { id_login: updatePerfilDto.loginIdLogin },
+      });
+
+      if (!login) {
+        throw new NotFoundException(`Login não encontrado.`);
+      }
+
+      perfil.login = login;
     }
+
+    const updatedPerfil = this.perfilRepository.merge(perfil, updatePerfilDto);
+    return await this.perfilRepository.save(updatedPerfil);
   }
 
   async delete(id: number): Promise<void> {
-    const result = await this.perfilRepository.delete(id);
-    if (result.affected === 0) {
-      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
-    }
+    const perfil = await this.findOne(id);
+    await this.perfilRepository.remove(perfil);
   }
 }

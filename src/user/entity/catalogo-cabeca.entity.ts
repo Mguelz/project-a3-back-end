@@ -3,6 +3,7 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -29,17 +30,16 @@ export class CatalogoCabecaEntity {
   @Column({ length: 100 })
   imagem: string;
 
-  @ManyToMany(() => GeneroEntity, (genero) => genero.catalogos)
-  @JoinTable()
-  // name: 'catalogo_genero',
-  // joinColumn: { name: 'id_catalogo', referencedColumnName: 'id_catalogo' },
-  // inverseJoinColumn: { name: 'id_genero', referencedColumnName: 'id_genero' },
-  // )
-  generos: GeneroEntity[];
+  // @ManyToMany(() => GeneroEntity, (genero) => genero.catalogos)
+  // @JoinTable()
+  // generos: GeneroEntity[];
 
-  @OneToMany(
-    () => CarrinhoItensEntity,
-    (carrinhoItens) => carrinhoItens.catalogos,
-  )
-  catalogoItens: CarrinhoItensEntity[];
+  @ManyToOne(() => GeneroEntity, (genero) => genero.catalogos)
+  genero: GeneroEntity;
+
+  // @OneToMany(
+  //   () => CarrinhoItensEntity,
+  //   (carrinhoItens) => carrinhoItens.catalogos,
+  // )
+  // catalogoItens: CarrinhoItensEntity[];
 }

@@ -3,12 +3,10 @@ import { IsNumber, Max, Min } from 'class-validator';
 
 export class CreateCarrinhoItensDto {
   @IsNumber()
-  @Min(1, { message: 'O ID do Login deve ser no mínimo 1 dígito' })
-  @Max(99999, { message: 'O ID do Login deve ter no máximo 5 dígitos' })
-  carrinhoId?: number;
+  carrinhoIdCarrinho: number;
 
   @IsNumber()
-  catalogoId?: number;
+  catalogoIdCatalogo: number;
 
   @IsNumber(
     { maxDecimalPlaces: 2 },

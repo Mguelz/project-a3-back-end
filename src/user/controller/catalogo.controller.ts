@@ -7,8 +7,8 @@ import {
   Param,
   Body,
 } from '@nestjs/common';
-import { CatalogoService } from '../service/catalogo.service';
 import { CreateCatalogoDto, UpdateCatalogoDto } from '../dto/catalogo.dto';
+import { CatalogoService } from '../service/catalogo-cabeca.service';
 
 @Controller('catalogo')
 export class CatalogoController {
