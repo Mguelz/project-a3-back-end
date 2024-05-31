@@ -1,4 +1,4 @@
-import { IsInt, IsNumber, IsString, Length, Max, Min } from 'class-validator';
+import { IsInt, IsNumber, IsString, Length, Min } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateCatalogoDto {

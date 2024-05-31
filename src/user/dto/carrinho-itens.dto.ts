@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNumber, Max, Min } from 'class-validator';
+import { IsNumber, Min } from 'class-validator';
 
 export class CreateCarrinhoItensDto {
   @IsNumber()

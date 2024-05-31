@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsDateString, IsNumber, IsString, Length, Max, Min } from 'class-validator';
+import { IsDateString, IsNumber, IsString, Length } from 'class-validator';
 
 export class CreatePerfilDto {
 

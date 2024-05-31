@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsNumber, IsString, Length, Max, Min } from 'class-validator';
+import { IsString, Length } from 'class-validator';
 
 export class CreateGeneroDto {
   @IsString()

@@ -1,14 +1,10 @@
 import { PartialType } from '@nestjs/mapped-types';
 import {
   IsEmail,
-  IsNumber,
   IsString,
   Length,
   Matches,
-  Max,
-  Min,
 } from 'class-validator';
-import { CreatePerfilDto } from './perfil.dto';
 
 export class CreateLoginDto {
 
