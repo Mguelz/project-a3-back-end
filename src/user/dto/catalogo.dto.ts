@@ -1,6 +1,4 @@
-import { Type } from 'class-transformer';
 import { IsInt, IsNumber, IsString, Length, Max, Min } from 'class-validator';
-import { CreateGeneroDto } from './genero.dto';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class CreateCatalogoDto {
