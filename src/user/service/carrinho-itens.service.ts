@@ -14,7 +14,7 @@ export class CarrinhoItensService {
   constructor(
     @InjectRepository(CarrinhoItensEntity)
     private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
-    private carrinhoCabecaService: CarrinhoCabecaService,
+    // private carrinhoCabecaService: CarrinhoCabecaService,
     private catalogoService: CatalogoService,
   ) {}
 

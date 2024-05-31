@@ -5,8 +5,8 @@ export class CreateCarrinhoCabecaDto {
   @IsNumber()
   perfilIdPerfil?: number;
 
-  // @Type(() => CreateCarrinhoItensDto)
-  // itens: CreateCarrinhoItensDto[];
+  @IsNumber()
+  itensIdItens?: number;
 }
 
 export class UpdateCarrinhoCabecaDto extends PartialType(

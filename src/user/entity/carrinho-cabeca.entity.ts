@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PerfilEntity } from './perfil.entity';
 import { CarrinhoItensEntity } from './carrinho-itens.entity';
 
@@ -11,5 +11,6 @@ export class CarrinhoCabecaEntity {
   perfil: PerfilEntity;
 
   @OneToMany(() => CarrinhoItensEntity, (item) => item.carrinho)
-  itens: CarrinhoItensEntity[];
+  @JoinColumn()
+  itens: CarrinhoItensEntity;
 }

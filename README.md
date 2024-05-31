@@ -4,35 +4,28 @@ Login Exemples
 
 Post
 {
-  "id_login":1,
   "email": "miguel@gmail.com",
-  "senha": "Miguel@12345",
-  "perfilIdLogin":1
+  "senha": "Miguel@12345"
 }
 
 ---
 
-Genero Exemples
-
-Post
-{
-"id_genero": 1,
-"descricao": "Sertanejo"
-}
-
----
 Perfil Exemples
 
-Post
 {
   "cpf": "12345678901",
   "nome": "Miguel Arcanjo",
   "data_nascimento": "1990-01-01",
   "cargo": "Administrador",
-  "login": {
-    "email": "miguel@gmail.com",
-    "senha": "Miguel@12345"
-  }
+  "loginIdLogin":5
+}
+
+---
+Genero Exemples
+
+Post
+{
+  "nome":"sertanejo"
 }
 
 ---
@@ -41,36 +34,47 @@ Catalogo Exemples
 
 Post
 {
-"id_catalogo": 123,
-"descricao": "Show de Sertanejo",
-"preco_unitario": 150.00,
-"disponivel": 1000,
-"vendido": 200,
-"generos": [
-{
-"id_genero": 1,
-"descricao": "sertanejo"
+  "descricao":"descricao do catalogo",
+  "preco_unitario":20.00,
+  "disponivel":100,
+  "vendido":0,
+  "imagem":"imagens/baileunip.png",
+  "generoIdGenero":1
 }
-]
-}
+
+---
+
+Itens Exemples
 
 Post
 {
-"descricao": "Show de Rock",
-"imagem": "imagem_do_show.jpg",
-"preco_unitario": 150.00,
-"disponivel": 100,
-"vendido": 10,
-"generos": [
-{
-"id_genero": 1,
-"descricao": "Rock"
-},
-{
-"id_genero": 2,
-"descricao": "Live Music"
+  "desconto":0,
+  "preco_item":20.00,
+  "quantidade":1,
+  "catalogoIdCatalogo":2
 }
-]
+
+---
+
+Catalogo Exemples
+
+Post
+{
+  "descricao":"descricao do catalogo",
+  "preco_unitario":20.00,
+  "disponivel":100,
+  "vendido":0,
+  "imagem":"imagens/baileunip.png",
+  "generoIdGenero":1
+}
+
+---
+Carrinho Cabeca Exemples
+
+Post
+{
+  "perfilIdPerfil":6,
+  "itensIdItens":2
 }
 
 ---
