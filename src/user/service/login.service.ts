@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LoginEntity } from '../entity/login.entity';
 import { Repository } from 'typeorm';
 import { CreateLoginDto, UpdateLoginDto } from '../dto/login.dto';
+import * as bcryptj from 'bcryptjs';
 
 @Injectable()
 export class LoginService {
@@ -28,6 +29,11 @@ export class LoginService {
   
   async create(createLoginDto: CreateLoginDto): Promise<LoginEntity> {
     try {
+      // criptografando a senha
+      const salt0rRounds = 10;
+      const hash = await bcryptj.hash(createLoginDto.senha, salt0rRounds);
+      createLoginDto.senha = hash;
+
       return await this.loginRepository.save(
         this.loginRepository.create(createLoginDto),
       );
