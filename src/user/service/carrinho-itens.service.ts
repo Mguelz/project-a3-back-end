@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarrinhoItensEntity } from '../entity/carrinho-itens.entity';
-import { CarrinhoCabecaService } from './carrinho-cabeca.service';
 import {
   CreateCarrinhoItensDto,
   UpdateCarrinhoItensDto,
@@ -14,7 +13,6 @@ export class CarrinhoItensService {
   constructor(
     @InjectRepository(CarrinhoItensEntity)
     private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
-    // private carrinhoCabecaService: CarrinhoCabecaService,
     private catalogoService: CatalogoService,
   ) {}
 

@@ -1,4 +1,4 @@
-import { Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { PerfilEntity } from './perfil.entity';
 import { CarrinhoItensEntity } from './carrinho-itens.entity';
 

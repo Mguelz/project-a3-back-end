@@ -46,15 +46,6 @@ export class CarrinhoCabecaService {
     if (!perfil) {
       throw new NotFoundException(`Perfil não encontrado.`);
     }
-
-    // // itens
-    // const itens = await this.itensService.findOne(
-    //   createCarrinhoCabecaDto.itensIdItens,
-    // );
-
-    // if (!itens) {
-    //   throw new NotFoundException(`Itens Carrinho não encontrado.`);
-    // }
     
     const novoCarrinhoCabeca = this.carrinhoCabecaRepository.create({
       ...createCarrinhoCabecaDto,
