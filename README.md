@@ -17,7 +17,7 @@ Perfil Exemples
   "nome": "Miguel Arcanjo",
   "data_nascimento": "1990-01-01",
   "cargo": "Administrador",
-  "loginIdLogin":5
+  "loginIdLogin":1
 }
 
 ---
@@ -38,7 +38,7 @@ Post
   "preco_unitario":20.00,
   "disponivel":100,
   "vendido":0,
-  "imagem":"imagens/baileunip.png",
+  "imagem":"localhost:3000/imagens/baileunip.png",
   "generoIdGenero":1
 }
 
@@ -49,9 +49,10 @@ Itens Exemples
 Post
 {
   "desconto":0,
-  "preco_item":20.00,
-  "quantidade":1,
-  "catalogoIdCatalogo":2
+  "preco_item":100.00,
+  "quantidade":2,
+  "catalogoIdCatalogo":4,
+  "id_carrinho":4
 }
 
 ---
@@ -73,8 +74,7 @@ Carrinho Cabeca Exemples
 
 Post
 {
-  "perfilIdPerfil":6,
-  "itensIdItens":2
+  "perfilIdPerfil":1
 }
 
 ---
