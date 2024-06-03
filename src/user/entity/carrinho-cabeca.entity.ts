@@ -10,6 +10,7 @@ export class CarrinhoCabecaEntity {
   @ManyToOne(() => PerfilEntity, (perfil) => perfil.carrinhos)
   perfil: PerfilEntity;
 
-  @OneToMany(() => CarrinhoItensEntity, (carrinhoItem) => carrinhoItem.carrinho)
+  @OneToMany(() => CarrinhoItensEntity, (item) => item.carrinho)
   itens: CarrinhoItensEntity[];
+  
 }

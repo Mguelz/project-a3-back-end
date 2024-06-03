@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CatalogoCabecaEntity } from '../entity/catalogo-cabeca.entity';
 
 @Entity()
@@ -7,8 +7,9 @@ export class GeneroEntity {
   id_genero: number;
 
   @Column({ length: 20 })
-  descricao: string;
+  nome: string;
 
-  @ManyToMany(() => CatalogoCabecaEntity, (catalogo) => catalogo.generos)
+
+  @OneToMany(() => CatalogoCabecaEntity, (catalogo) => catalogo.genero)
   catalogos: CatalogoCabecaEntity[];
 }

@@ -28,6 +28,7 @@ export class PerfilEntity {
   cargo: string;
 
   @OneToOne(() => LoginEntity, (login) => login.perfil)
+  @JoinColumn()
   login: LoginEntity;
 
   @OneToMany(() => CarrinhoCabecaEntity, (carrinho) => carrinho.perfil)

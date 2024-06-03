@@ -1,26 +1,34 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PerfilEntity } from '../entity/perfil.entity';
 import { Repository } from 'typeorm';
 import { CreatePerfilDto, UpdatePerfilDto } from '../dto/perfil.dto';
+import { LoginEntity } from '../entity/login.entity';
 
 @Injectable()
 export class PerfilService {
   constructor(
     @InjectRepository(PerfilEntity)
     private perfilRepository: Repository<PerfilEntity>,
+    @InjectRepository(LoginEntity)
+    private loginRepository: Repository<LoginEntity>,
   ) {}
 
   async findAll(): Promise<PerfilEntity[]> {
     return await this.perfilRepository.find({
-      // relations: ['login', 'carrinhos'],
+      relations: ['login', 'carrinhos'],
     });
   }
 
   async findOne(id: number): Promise<PerfilEntity> {
     const perfil = await this.perfilRepository.findOne({
       where: { id_perfil: id },
-      // relations: ['login', 'carinhos'],
+      relations: ['login', 'carrinhos'],
     });
 
     if (!perfil) {
@@ -30,36 +38,44 @@ export class PerfilService {
   }
 
   async create(createPerfilDto: CreatePerfilDto): Promise<PerfilEntity> {
-    try {
-      return await this.perfilRepository.save(
-        this.perfilRepository.create(createPerfilDto),
-      );
-    } catch (error) {
-      if (error.code === 'ER_DUP_ENTRY') {
-        throw new HttpException(
-          'Há registros repetidos.',
-          HttpStatus.BAD_REQUEST,
-        );
-      } else {
-        throw new HttpException(
-          'Erro ao criar o registro. Tente novamente mais tarde.',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }
+    const login = await this.loginRepository.findOne({
+      where: { id_login: createPerfilDto.loginIdLogin },
+    });
+    if (!login) {
+      throw new NotFoundException(`Login não encontrado.`);
     }
+
+    const novoPerfil = this.perfilRepository.create({
+      ...createPerfilDto,
+      login: login, // Associando o login encontrado ao novo registro de perfil
+    });
+    return await this.perfilRepository.save(novoPerfil);
   }
 
-  async update(id: number, updatePerfilDto: UpdatePerfilDto): Promise<void> {
-    const result = await this.perfilRepository.update(id, updatePerfilDto);
-    if (result.affected === 0) {
-      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
+  async update(
+    id: number,
+    updatePerfilDto: UpdatePerfilDto,
+  ): Promise<PerfilEntity> {
+    const perfil = await this.findOne(id);
+
+    if (updatePerfilDto.loginIdLogin) {
+      const login = await this.loginRepository.findOne({
+        where: { id_login: updatePerfilDto.loginIdLogin },
+      });
+
+      if (!login) {
+        throw new NotFoundException(`Login não encontrado.`);
+      }
+
+      perfil.login = login;
     }
+
+    const updatedPerfil = this.perfilRepository.merge(perfil, updatePerfilDto);
+    return await this.perfilRepository.save(updatedPerfil);
   }
 
   async delete(id: number): Promise<void> {
-    const result = await this.perfilRepository.delete(id);
-    if (result.affected === 0) {
-      throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
-    }
+    const perfil = await this.findOne(id);
+    await this.perfilRepository.remove(perfil);
   }
 }

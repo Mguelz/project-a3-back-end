@@ -3,27 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LoginEntity } from '../entity/login.entity';
 import { Repository } from 'typeorm';
 import { CreateLoginDto, UpdateLoginDto } from '../dto/login.dto';
-import { PerfilEntity } from '../entity/perfil.entity';
+import * as bcryptj from 'bcryptjs';
 
 @Injectable()
 export class LoginService {
   constructor(
     @InjectRepository(LoginEntity)
     private loginRepository: Repository<LoginEntity>,
-    // @InjectRepository(PerfilEntity)
-    // private perfilRepository: Repository<PerfilEntity>,
   ) {}
 
   async findAll(): Promise<LoginEntity[]> {
     return await this.loginRepository.find({
-      // relations: ['perfil'],
     });
   }
 
   async findOne(id: number): Promise<LoginEntity> {
     const login = await this.loginRepository.findOne({
       where: { id_login: id },
-      // relations: ['perfil'],
     });
     if (!login) {
       throw new HttpException(`Usuário não encontrado.`, HttpStatus.NOT_FOUND);
@@ -33,6 +29,11 @@ export class LoginService {
   
   async create(createLoginDto: CreateLoginDto): Promise<LoginEntity> {
     try {
+      // criptografando a senha
+      const salt0rRounds = 10;
+      const hash = await bcryptj.hash(createLoginDto.senha, salt0rRounds);
+      createLoginDto.senha = hash;
+
       return await this.loginRepository.save(
         this.loginRepository.create(createLoginDto),
       );
@@ -50,37 +51,6 @@ export class LoginService {
       }
     }
   }
-  
-  // async create(createLoginDto: CreateLoginDto): Promise<LoginEntity> {
-  //   const perfil = new PerfilEntity();
-  //   perfil.nome = createLoginDto.perfil.nome;
-  //   perfil.cpf = createLoginDto.perfil.cpf;
-  //   perfil.data_nascimento = new Date(createLoginDto.perfil.data_nascimento);
-  //   perfil.cargo = createLoginDto.perfil.cargo;
-
-  //   const savedPerfil = await this.perfilRepository.save(perfil);
-
-  //   const login = new LoginEntity();
-  //   login.email = createLoginDto.email;
-  //   login.senha = createLoginDto.senha;
-  //   login.perfil = savedPerfil;
-
-  //   try {
-  //     return await this.loginRepository.save(login);
-  //   } catch (error) {
-  //     if (error.code === 'ER_DUP_ENTRY') {
-  //       throw new HttpException(
-  //         'Email ou CPF já estão em uso.',
-  //         HttpStatus.BAD_REQUEST,
-  //       );
-  //     } else {
-  //       throw new HttpException(
-  //         'Erro ao criar o login. Tente novamente mais tarde.',
-  //         HttpStatus.INTERNAL_SERVER_ERROR,
-  //       );
-  //     }
-  //   }
-  // }
 
   async update(id: number, updateLoginDto: UpdateLoginDto): Promise<void> {
     const result = await this.loginRepository.update(id, updateLoginDto);

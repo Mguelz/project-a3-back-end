@@ -1,14 +1,9 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { Type } from 'class-transformer';
-import { IsInt } from 'class-validator';
-import { CreateCarrinhoItensDto } from './carrinho-itens.dto';
+import { IsNumber } from 'class-validator';
 
 export class CreateCarrinhoCabecaDto {
-  @IsInt()
-  perfilId?: number;
-
-  @Type(() => CreateCarrinhoItensDto)
-  itens: CreateCarrinhoItensDto[];
+  @IsNumber()
+  perfilIdPerfil?: number;
 }
 
 export class UpdateCarrinhoCabecaDto extends PartialType(
