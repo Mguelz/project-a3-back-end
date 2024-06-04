@@ -19,6 +19,10 @@ export class CreateCarrinhoItensDto {
   @Min(0, { message: 'O preço do item deve ser maior ou igual a 0' })
   preco_item: number;
 
+  // o valor total será calculado diretamente pelo código, não precisa ser validado
+  // @IsNumber()
+  // valor_total: number;
+
   @IsNumber()
   @Min(1, { message: 'A quantidade deve ser maior ou igual a 1' })
   quantidade: number;
