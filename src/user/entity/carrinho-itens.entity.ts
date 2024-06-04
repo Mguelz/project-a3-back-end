@@ -22,6 +22,9 @@ export class CarrinhoItensEntity {
   @Column({ type: 'int' })
   quantidade: number;
 
+  @Column({type: 'numeric', precision:7, scale:2})
+  valor_total: number;
+
   @ManyToOne(() => CarrinhoCabecaEntity, (carrinho) => carrinho.itens)
   @JoinColumn({ name: 'id_carrinho' })
   carrinho: CarrinhoCabecaEntity;
