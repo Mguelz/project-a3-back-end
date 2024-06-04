@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarrinhoItensEntity } from '../entity/carrinho-itens.entity';
@@ -28,22 +32,26 @@ export class CarrinhoItensService {
     }
 
     // verifica se a quantidade que deseja comprar realmente esta disponivel
-    if (catalogo.disponivel < createCarrinhoItensDto.quantidade){
-      throw new BadRequestException("Não há ingressos disponiveis!")
+    if (catalogo.disponivel < createCarrinhoItensDto.quantidade) {
+      throw new BadRequestException('Não há ingressos disponiveis!');
     }
 
     //calcula o valor total do carrinho
-    const valorTotal = createCarrinhoItensDto.quantidade * catalogo.preco_unitario
+    const valorTotalSemDesconto =
+      createCarrinhoItensDto.quantidade * catalogo.preco_unitario;
+    if (createCarrinhoItensDto.desconto > valorTotalSemDesconto) {
+      throw new BadRequestException('Desconto não pode ser acima do valor total da compra');
+    }
+    const valorTotalComDesconto = valorTotalSemDesconto - createCarrinhoItensDto.desconto;
 
     // atualiza na tabela catalogo a quantidade disponivel
     catalogo.disponivel -= createCarrinhoItensDto.quantidade;
-    await this.catalogoService.update(catalogo.id_catalogo, catalogo)
-    // createCarrinhoItensDto.valor_total = createCarrinhoItensDto.quantidade * createCarrinhoItensDto.preco_item
+    await this.catalogoService.update(catalogo.id_catalogo, catalogo);
 
     const newCarrinhoItens = this.carrinhoItensRepository.create({
       ...createCarrinhoItensDto,
       catalogo: catalogo,
-      valor_total: valorTotal, // passa o valor total
+      valor_total: valorTotalComDesconto, // passa o valor total
     });
     return await this.carrinhoItensRepository.save(newCarrinhoItens);
   }
