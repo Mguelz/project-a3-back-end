@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { GeneroEntity } from './genero.entity';
 import { CarrinhoItensEntity } from './carrinho-itens.entity';
+import { IngressoEntity } from './ingresso.entity';
 
 @Entity()
 export class CatalogoCabecaEntity {
@@ -33,4 +34,8 @@ export class CatalogoCabecaEntity {
 
   @ManyToOne(() => GeneroEntity, (genero) => genero.catalogos)
   genero: GeneroEntity;
+
+  @OneToMany(() => IngressoEntity, (ingresso) => ingresso.catalogo)
+  ingressos: IngressoEntity[]; // [] - recebe vários ingressos
+                               // 1 catalogo pode ter vários ingressos
 }

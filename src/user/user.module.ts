@@ -19,6 +19,9 @@ import { CatalogoController } from './controller/catalogo.controller';
 import { CarrinhoCabecaController } from './controller/carrinho-cabeca.controller';
 import { CarrinhoItensController } from './controller/carrinho-itens.controller';
 import { CatalogoService } from './service/catalogo-cabeca.service';
+import { IngressoService } from './service/ingresso.service';
+import { IngressoController } from './controller/IngressoController';
+import { IngressoEntity } from './entity/ingresso.entity';
 
 @Module({
   imports: [
@@ -30,6 +33,7 @@ import { CatalogoService } from './service/catalogo-cabeca.service';
       GeneroEntity,
       CarrinhoCabecaEntity,
       CarrinhoItensEntity,
+      IngressoEntity
     ]),
   ],
   controllers: [
@@ -39,6 +43,7 @@ import { CatalogoService } from './service/catalogo-cabeca.service';
     CatalogoController,
     CarrinhoCabecaController,
     CarrinhoItensController,
+    IngressoController,
   ],
   providers: [
     PerfilService,
@@ -46,7 +51,8 @@ import { CatalogoService } from './service/catalogo-cabeca.service';
     GeneroService,
     CarrinhoCabecaService,
     CarrinhoItensService,
-    CatalogoService
+    CatalogoService,
+    IngressoService
   ],
 })
 export class UserModule {}
