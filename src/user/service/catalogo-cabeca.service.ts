@@ -28,13 +28,13 @@ export class CatalogoService {
   }
 
   async findAll(): Promise<CatalogoCabecaEntity[]> {
-    return await this.catalogoRepository.find({ relations: ['genero'] });
+    return await this.catalogoRepository.find({ relations: ['genero', 'ingressos'] });
   }
 
   async findOne(id: number): Promise<CatalogoCabecaEntity> {
     const catalogo = await this.catalogoRepository.findOne({
       where: { id_catalogo: id },
-      relations: ['genero'],
+      relations: ['genero', 'ingressos'],
     });
     if (!catalogo) {
       throw new NotFoundException(`Catálogo não encontrado.`);
