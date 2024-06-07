@@ -14,12 +14,6 @@ import { CreateIngressoDto, UpdateIngressoDto } from '../dto/ingresso.dto';
 export class IngressoController {
   constructor(private readonly ingressoService: IngressoService) {}
 
-  //   @Post()
-  //   async create(
-  //     @Body() createIngressoDto: CreateIngressoDto,
-  //   ): Promise<IngressoEntity> {
-  //     return this.ingressoService.create(createIngressoDto);
-  //   }
   @Get()
   async findAll(): Promise<any[]> {
     return this.ingressoService.findAll();
@@ -35,13 +29,13 @@ export class IngressoController {
     return this.ingressoService.create(createIngressoDto);
   }
 
-  //   @Put(':id')
-  //   async update(
-  //     @Param('id') id: number,
-  //     @Body() UpdateIngressoDto: CreateIngressoDto,
-  //   ): Promise<any> {
-  //     return this.ingressoService.update(id, UpdateIngressoDto);
-  //   }
+    @Put(':id')
+    async update(
+      @Param('id') id: number,
+      @Body() UpdateIngressoDto: CreateIngressoDto,
+    ): Promise<any> {
+      return this.ingressoService.update(id, UpdateIngressoDto);
+    }
 
   @Delete(':id')
   async delete(@Param('id') id: number): Promise<void> {

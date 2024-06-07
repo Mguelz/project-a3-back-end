@@ -46,28 +46,26 @@ export class IngressoService {
     return ingressos;
   }
 
-//   async update(
-//     id: number,
-//     updateIngressoDto: UpdateIngressoDto,
-//   ): Promise<IngressoEntity> {
-//     const ingresso = await this.findOne(id);
+  async update(
+    id: number,
+    updateIngressoDto: UpdateIngressoDto,
+  ): Promise<IngressoEntity> {
+    const ingresso = await this.findOne(id);
 
-//     if (updateIngressoDto.catalogoIdCatalogo) {
-//       const catalogo = await this.catalogoService.findOne(
-//         updateIngressoDto.catalogoIdCatalogo,
-//       );
-//       if (!catalogo) {
-//         throw new NotFoundException(`Catálogo não encontrado.`);
-//       }
-//       ingresso.catalogoIdCatalogo = catalogo;
-//     }
+    if (updateIngressoDto.catalogoIdCatalogo) {
+      const catalogo = await this.catalogoService.findOne(
+        updateIngressoDto.catalogoIdCatalogo,
+      );
+      if (!catalogo) {
+        throw new NotFoundException(`Catálogo não encontrado.`);
+      }
+      ingresso.catalogo = catalogo;
+    }
 
-//     const updateIngresso = this.ingressoRepository.merge(
-//       ingresso,
-//       updateIngressoDto,
-//     );
-//     return await this.ingressoRepository.save(updateIngresso);
-//   }
+    this.ingressoRepository.merge(ingresso, updateIngressoDto);
+
+    return await this.ingressoRepository.save(ingresso);
+  }
 
   async delete(id: number): Promise<void> {
     const ingresso = await this.findOne(id);
