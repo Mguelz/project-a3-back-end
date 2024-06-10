@@ -9,7 +9,7 @@ import {
 import { LoginEntity } from '../entity/login.entity';
 import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
 
-@Entity()
+@Entity({name: 'perfil'})
 export class PerfilEntity {
   @PrimaryGeneratedColumn()
   @OneToOne(() => LoginEntity, (login) => login.perfil)

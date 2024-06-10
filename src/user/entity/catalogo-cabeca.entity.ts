@@ -9,7 +9,7 @@ import { GeneroEntity } from './genero.entity';
 import { CarrinhoItensEntity } from './carrinho-itens.entity';
 import { IngressoEntity } from './ingresso.entity';
 
-@Entity()
+@Entity({name: 'catalogo'})
 export class CatalogoCabecaEntity {
   @PrimaryGeneratedColumn()
   id_catalogo: number;

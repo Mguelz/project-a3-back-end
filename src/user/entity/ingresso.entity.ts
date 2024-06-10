@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CatalogoCabecaEntity } from './catalogo-cabeca.entity';
 
-@Entity()
+@Entity({ name: 'ingresso' })
 export class IngressoEntity {
   @PrimaryGeneratedColumn()
   id_ingresso: number;

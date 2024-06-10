@@ -8,7 +8,7 @@ import {
 import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
 import { CatalogoCabecaEntity } from './catalogo-cabeca.entity';
 
-@Entity()
+@Entity({name: 'itens_carrinho'})
 export class CarrinhoItensEntity {
   @PrimaryGeneratedColumn()
   id_carrinho_item: number;
