@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
 import { CatalogoCabecaEntity } from './catalogo-cabeca.entity';
+import { IngressoEntity } from './ingresso.entity';
 
 @Entity({name: 'itens_carrinho'})
 export class CarrinhoItensEntity {
@@ -38,4 +39,11 @@ export class CarrinhoItensEntity {
 
   @Column('Int')
   catalogoIdCatalogo: number;
+
+  @ManyToOne(() => IngressoEntity)
+  @JoinColumn({ name: 'ingresso_id' })
+  ingresso: IngressoEntity;
+
+  @Column('int')
+  ingressoId: number;
 }

@@ -32,6 +32,9 @@ export class CreateCarrinhoItensDto {
 
   @IsInt()
   id_carrinho: number;
+
+  @IsInt()
+  ingressoId: number;
 }
 
 export class UpdateCarrinhoItensDto extends PartialType(

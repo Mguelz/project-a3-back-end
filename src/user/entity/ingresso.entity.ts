@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CatalogoCabecaEntity } from './catalogo-cabeca.entity';
+import { CarrinhoItensEntity } from './carrinho-itens.entity';
 
 @Entity({ name: 'ingresso' })
 export class IngressoEntity {
@@ -17,4 +18,8 @@ export class IngressoEntity {
 
   @ManyToOne(() => CatalogoCabecaEntity, (catalogo) => catalogo.ingressos)
   catalogo: CatalogoCabecaEntity; // [] - não precisa / ingresso pertence a 1 catalogo
+
+  // @OneToMany(() => CarrinhoItensEntity)
+  // @JoinColumn({ name: 'itens_carrinho' })
+  // ingresso: CarrinhoItensEntity;
 }

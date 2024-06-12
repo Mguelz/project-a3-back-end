@@ -11,48 +11,60 @@ import {
   UpdateCarrinhoItensDto,
 } from '../dto/carrinho-itens.dto';
 import { CatalogoService } from './catalogo-cabeca.service';
+import { IngressoEntity } from '../entity/ingresso.entity';
 
 @Injectable()
 export class CarrinhoItensService {
   constructor(
-    @InjectRepository(CarrinhoItensEntity)
-    private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
+    @InjectRepository(IngressoEntity)
+    private ingressoRepository: Repository<IngressoEntity>,
     private catalogoService: CatalogoService,
+    private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
   ) {}
 
-  async create(
-    createCarrinhoItensDto: CreateCarrinhoItensDto,
-  ): Promise<CarrinhoItensEntity> {
-    const catalogo = await this.catalogoService.findOne(
-      createCarrinhoItensDto.catalogoIdCatalogo,
-    );
+  async create(createCarrinhoItensDto: CreateCarrinhoItensDto): Promise<CarrinhoItensEntity> {
+    const catalogo = await this.catalogoService.findOne(createCarrinhoItensDto.catalogoIdCatalogo);
 
     if (!catalogo) {
       throw new NotFoundException(`Catálogo não encontrado.`);
     }
 
-    // verifica se a quantidade que deseja comprar realmente esta disponivel
-    if (catalogo.disponivel < createCarrinhoItensDto.quantidade) {
-      throw new BadRequestException('Não há ingressos disponiveis!');
+    // Verifica se o ingresso específico está disponível
+    const ingresso = await this.ingressoRepository.findOne({
+      where: { 
+        catalogo: { id_catalogo: createCarrinhoItensDto.catalogoIdCatalogo }, 
+        id_ingresso: createCarrinhoItensDto.ingressoId,
+      },
+    });
+
+    if (!ingresso) {
+      throw new NotFoundException(`Ingresso não encontrado no catálogo.`);
     }
 
-    //calcula o valor total do carrinho
-    const valorTotalSemDesconto =
-      createCarrinhoItensDto.quantidade * catalogo.preco_unitario;
+    if (ingresso.quantidade < createCarrinhoItensDto.quantidade) {
+      throw new BadRequestException('Não há ingressos disponíveis suficientes!');
+    }
+
+    const valorTotalSemDesconto = createCarrinhoItensDto.quantidade * ingresso.preco_unitario;
+
     if (createCarrinhoItensDto.desconto > valorTotalSemDesconto) {
       throw new BadRequestException('Desconto não pode ser acima do valor total da compra');
     }
+
     const valorTotalComDesconto = valorTotalSemDesconto - createCarrinhoItensDto.desconto;
 
-    // atualiza na tabela catalogo a quantidade disponivel
-    catalogo.disponivel -= createCarrinhoItensDto.quantidade;
-    await this.catalogoService.update(catalogo.id_catalogo, catalogo);
+    // Atualiza a quantidade disponível do ingresso
+    ingresso.quantidade -= createCarrinhoItensDto.quantidade;
+    await this.ingressoRepository.save(ingresso);
 
     const newCarrinhoItens = this.carrinhoItensRepository.create({
       ...createCarrinhoItensDto,
-      catalogo: catalogo,
-      valor_total: valorTotalComDesconto, // passa o valor total
+      catalogo,
+      ingresso,
+      preco_item: ingresso.preco_unitario,
+      valor_total: valorTotalComDesconto,
     });
+
     return await this.carrinhoItensRepository.save(newCarrinhoItens);
   }
 
