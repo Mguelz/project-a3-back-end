@@ -1,5 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsInt, IsNumber, Min } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCarrinhoItensDto {
   @IsNumber(
@@ -7,6 +8,7 @@ export class CreateCarrinhoItensDto {
     { message: 'O desconto deve ser um número com no máximo 2 casas decimais' },
   )
   @Min(0, { message: 'O desconto deve ser maior ou igual a 0' })
+  @ApiProperty({ description: 'Desconto' })
   desconto?: number;
 
   // @IsNumber(
@@ -25,15 +27,19 @@ export class CreateCarrinhoItensDto {
 
   @IsNumber()
   @Min(1, { message: 'A quantidade deve ser maior ou igual a 1' })
+  @ApiProperty({ description: 'Quantidade Itens' })
   quantidade: number;
 
   @IsNumber()
+  @ApiProperty({ description: 'Catalago ID' })
   catalogoIdCatalogo: number;
 
   @IsInt()
+  @ApiProperty({ description: 'Carrinho Cabeça ID' })
   id_carrinho: number;
 
   @IsInt()
+  @ApiProperty({ description: 'Ingresso ID' })
   ingressoId: number;
 }
 
