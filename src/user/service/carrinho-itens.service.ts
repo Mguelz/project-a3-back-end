@@ -11,6 +11,7 @@ import {
   UpdateCarrinhoItensDto,
 } from '../dto/carrinho-itens.dto';
 import { CatalogoService } from './catalogo-cabeca.service';
+import { IngressoEntity } from '../entity/ingresso.entity';
 
 @Injectable()
 export class CarrinhoItensService {
@@ -18,11 +19,14 @@ export class CarrinhoItensService {
     @InjectRepository(CarrinhoItensEntity)
     private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
     private catalogoService: CatalogoService,
+    @InjectRepository(IngressoEntity)
+    private ingressoRepository: Repository<IngressoEntity>,
   ) {}
 
   async create(
     createCarrinhoItensDto: CreateCarrinhoItensDto,
   ): Promise<CarrinhoItensEntity> {
+    // Buscar o catálogo pelo ID fornecido
     const catalogo = await this.catalogoService.findOne(
       createCarrinhoItensDto.catalogoIdCatalogo,
     );
@@ -31,28 +35,45 @@ export class CarrinhoItensService {
       throw new NotFoundException(`Catálogo não encontrado.`);
     }
 
-    // verifica se a quantidade que deseja comprar realmente esta disponivel
-    if (catalogo.disponivel < createCarrinhoItensDto.quantidade) {
-      throw new BadRequestException('Não há ingressos disponiveis!');
+    // Buscar o ingresso pelo ID fornecido
+    const ingresso = await this.ingressoRepository.findOne({
+      where: { id_ingresso: createCarrinhoItensDto.ingressoId },
+    });
+
+    if (!ingresso) {
+      throw new NotFoundException(`Ingresso não encontrado.`);
     }
 
-    //calcula o valor total do carrinho
+    // Verifica se a quantidade desejada está disponível
+    if (ingresso.quantidade < createCarrinhoItensDto.quantidade) {
+      throw new BadRequestException('Quantidade de ingressos indisponível.');
+    }
+
+    // Calcula o valor total com e sem desconto
     const valorTotalSemDesconto =
-      createCarrinhoItensDto.quantidade * catalogo.preco_unitario;
+      createCarrinhoItensDto.quantidade * ingresso.preco_unitario;
     if (createCarrinhoItensDto.desconto > valorTotalSemDesconto) {
-      throw new BadRequestException('Desconto não pode ser acima do valor total da compra');
+      throw new BadRequestException(
+        'Desconto não pode ser maior que o valor total.',
+      );
     }
-    const valorTotalComDesconto = valorTotalSemDesconto - createCarrinhoItensDto.desconto;
+    const valorTotalComDesconto =
+      valorTotalSemDesconto - createCarrinhoItensDto.desconto;
 
-    // atualiza na tabela catalogo a quantidade disponivel
-    catalogo.disponivel -= createCarrinhoItensDto.quantidade;
-    await this.catalogoService.update(catalogo.id_catalogo, catalogo);
+    // Atualiza a quantidade disponível do ingresso
+    ingresso.quantidade -= createCarrinhoItensDto.quantidade;
+    await this.ingressoRepository.save(ingresso);
 
+    // Cria o novo item do carrinho
     const newCarrinhoItens = this.carrinhoItensRepository.create({
       ...createCarrinhoItensDto,
       catalogo: catalogo,
-      valor_total: valorTotalComDesconto, // passa o valor total
+      ingresso: ingresso,
+      // preco_item: ingresso.preco_unitario,
+      valor_final: valorTotalComDesconto,
     });
+
+    // Salva o novo item do carrinho no banco de dados
     return await this.carrinhoItensRepository.save(newCarrinhoItens);
   }
 

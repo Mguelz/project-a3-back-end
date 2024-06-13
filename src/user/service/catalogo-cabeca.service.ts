@@ -1,19 +1,19 @@
  import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CatalogoCabecaEntity } from '../entity/catalogo-cabeca.entity';
+import { CatalogoEntity } from '../entity/catalogo-cabeca.entity';
 import { CreateCatalogoDto, UpdateCatalogoDto } from '../dto/catalogo.dto';
 import { GeneroService } from './genero.service';
 
 @Injectable()
 export class CatalogoService {
   constructor(
-    @InjectRepository(CatalogoCabecaEntity)
-    private catalogoRepository: Repository<CatalogoCabecaEntity>,
+    @InjectRepository(CatalogoEntity)
+    private catalogoRepository: Repository<CatalogoEntity>,
     private generoService: GeneroService,
   ) {}
 
-  async create(createCatalogoDto: CreateCatalogoDto): Promise<CatalogoCabecaEntity> {
+  async create(createCatalogoDto: CreateCatalogoDto): Promise<CatalogoEntity> {
     const genero = await this.generoService.findOne(createCatalogoDto.generoIdGenero);
 
     if (!genero) {
@@ -27,11 +27,11 @@ export class CatalogoService {
     return await this.catalogoRepository.save(newCatalogo);
   }
 
-  async findAll(): Promise<CatalogoCabecaEntity[]> {
+  async findAll(): Promise<CatalogoEntity[]> {
     return await this.catalogoRepository.find({ relations: ['genero', 'ingressos'] });
   }
 
-  async findOne(id: number): Promise<CatalogoCabecaEntity> {
+  async findOne(id: number): Promise<CatalogoEntity> {
     const catalogo = await this.catalogoRepository.findOne({
       where: { id_catalogo: id },
       relations: ['genero', 'ingressos'],
@@ -42,7 +42,7 @@ export class CatalogoService {
     return catalogo;
   }
 
-  async update(id: number, updateCatalogoDto: UpdateCatalogoDto): Promise<CatalogoCabecaEntity> {
+  async update(id: number, updateCatalogoDto: UpdateCatalogoDto): Promise<CatalogoEntity> {
     const catalogo = await this.findOne(id);
 
     if (updateCatalogoDto.generoIdGenero) {

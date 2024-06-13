@@ -34,12 +34,31 @@ Catalogo Exemples
 
 Post
 {
-  "descricao":"descricao do catalogo",
-  "preco_unitario":20.00,
-  "disponivel":100,
+  "descricao":"Festa Junina",
+  "preco_unitario":30.00,
   "vendido":0,
-  "imagem":"localhost:3000/imagens/baileunip.png",
+  "imagem":"localhost:3000/imagens/tardezinha.png",
   "generoIdGenero":1
+}
+
+---
+
+Ingresso Exemples
+
+{
+  "nome":"camarote",
+  "quantidade":100,
+  "preco_unitario":60.00,
+  "catalogoIdCatalogo":3
+}
+
+---
+
+Carrinho Cabeca Exemples
+
+Post
+{
+  "perfilIdPerfil":1
 }
 
 ---
@@ -49,45 +68,25 @@ Itens Exemples
 Post
 {
   "desconto":0,
-  "preco_item":100.00,
-  "quantidade":2,
-  "catalogoIdCatalogo":4,
-  "id_carrinho":4
+  "quantidade":1,
+  "catalogoIdCatalogo":1,
+  "id_carrinho":1,
+  "ingressoId":1
 }
 
 ---
 
-Catalogo Exemples
-
-Post
-{
-  "descricao":"descricao do catalogo",
-  "preco_unitario":20.00,
-  "disponivel":100,
-  "vendido":0,
-  "imagem":"imagens/baileunip.png",
-  "generoIdGenero":1
-}
-
----
-Carrinho Cabeca Exemples
-
-Post
-{
-  "perfilIdPerfil":1
-}
-
----
 .env
 
 DB_TYPE=mysql
 DB_HOST=localhost
 DB_PORT=3306
 DB_USERNAME=root
-DB_PASSWORD=password
-DB_DATABASE=database_name
+DB_PASSWORD=senha12
+DB_DATABASE=project_a3
 DB_ENTITIES=dist/**/*.entity{.ts,.js}
 DB_SYNCHRONIZE=true
+JWT_SECRET=projetoa3
 
 
 

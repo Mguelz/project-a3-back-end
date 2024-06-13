@@ -1,7 +1,8 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { CatalogoCabecaEntity } from './catalogo-cabeca.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { CatalogoEntity } from './catalogo-cabeca.entity';
+import { CarrinhoItensEntity } from './carrinho-itens.entity';
 
-@Entity()
+@Entity({ name: 'ingresso' })
 export class IngressoEntity {
   @PrimaryGeneratedColumn()
   id_ingresso: number;
@@ -15,6 +16,9 @@ export class IngressoEntity {
   @Column({ type: 'numeric', precision: 7, scale: 2 })
   preco_unitario: number;
 
-  @ManyToOne(() => CatalogoCabecaEntity, (catalogo) => catalogo.ingressos)
-  catalogo: CatalogoCabecaEntity; // [] - não precisa / ingresso pertence a 1 catalogo
+  @ManyToOne(() => CatalogoEntity, (catalogo) => catalogo.ingressos)
+  catalogo: CatalogoEntity; // [] - não precisa / ingresso pertence a 1 catalogo
+
+  @OneToMany(() => CarrinhoItensEntity, (itens) => itens.carrinho)
+  itens: CarrinhoItensEntity;
 }

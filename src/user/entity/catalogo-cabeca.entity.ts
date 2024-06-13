@@ -9,8 +9,8 @@ import { GeneroEntity } from './genero.entity';
 import { CarrinhoItensEntity } from './carrinho-itens.entity';
 import { IngressoEntity } from './ingresso.entity';
 
-@Entity()
-export class CatalogoCabecaEntity {
+@Entity({name: 'catalogo'})
+export class CatalogoEntity {
   @PrimaryGeneratedColumn()
   id_catalogo: number;
 
@@ -20,8 +20,8 @@ export class CatalogoCabecaEntity {
   @Column({ type: 'numeric', precision: 7, scale: 2 })
   preco_unitario: number;
 
-  @Column({ type: 'int' })
-  disponivel: number;
+  // @Column({ type: 'int' })
+  // disponivel: number;
 
   @Column({ type: 'int' })
   vendido: number;

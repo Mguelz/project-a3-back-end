@@ -3,7 +3,7 @@ import { DatabaseModule } from '../database/database.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PerfilEntity } from './entity/perfil.entity';
 import { LoginEntity } from './entity/login.entity';
-import { CatalogoCabecaEntity } from './entity/catalogo-cabeca.entity';
+import { CatalogoEntity } from './entity/catalogo-cabeca.entity';
 import { GeneroEntity } from './entity/genero.entity';
 import { CarrinhoCabecaEntity } from './entity/carrinho-cabeca.entity';
 import { CarrinhoItensEntity } from './entity/carrinho-itens.entity';
@@ -29,11 +29,11 @@ import { IngressoEntity } from './entity/ingresso.entity';
     TypeOrmModule.forFeature([
       PerfilEntity,
       LoginEntity,
-      CatalogoCabecaEntity,
+      CatalogoEntity,
       GeneroEntity,
       CarrinhoCabecaEntity,
       CarrinhoItensEntity,
-      IngressoEntity
+      IngressoEntity,
     ]),
   ],
   controllers: [
@@ -52,7 +52,7 @@ import { IngressoEntity } from './entity/ingresso.entity';
     CarrinhoCabecaService,
     CarrinhoItensService,
     CatalogoService,
-    IngressoService
+    IngressoService,
   ],
 })
 export class UserModule {}
