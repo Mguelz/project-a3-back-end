@@ -20,8 +20,8 @@ export class CatalogoCabecaEntity {
   @Column({ type: 'numeric', precision: 7, scale: 2 })
   preco_unitario: number;
 
-  @Column({ type: 'int' })
-  disponivel: number;
+  // @Column({ type: 'int' })
+  // disponivel: number;
 
   @Column({ type: 'int' })
   vendido: number;

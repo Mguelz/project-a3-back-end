@@ -9,15 +9,15 @@ export class CreateCarrinhoItensDto {
   @Min(0, { message: 'O desconto deve ser maior ou igual a 0' })
   desconto?: number;
 
-  @IsNumber(
-    { maxDecimalPlaces: 2 },
-    {
-      message:
-        'O preço do item deve ser um número com no máximo 2 casas decimais',
-    },
-  )
-  @Min(0, { message: 'O preço do item deve ser maior ou igual a 0' })
-  preco_item: number;
+  // @IsNumber(
+  //   { maxDecimalPlaces: 2 },
+  //   {
+  //     message:
+  //       'O preço do item deve ser um número com no máximo 2 casas decimais',
+  //   },
+  // )
+  // @Min(0, { message: 'O preço do item deve ser maior ou igual a 0' })
+  // preco_item: number;
 
   // o valor total será calculado diretamente pelo código, não precisa ser validado
   // @IsNumber()

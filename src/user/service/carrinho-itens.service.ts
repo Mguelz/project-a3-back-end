@@ -26,6 +26,7 @@ export class CarrinhoItensService {
   async create(
     createCarrinhoItensDto: CreateCarrinhoItensDto,
   ): Promise<CarrinhoItensEntity> {
+    // Buscar o catálogo pelo ID fornecido
     const catalogo = await this.catalogoService.findOne(
       createCarrinhoItensDto.catalogoIdCatalogo,
     );
@@ -34,33 +35,28 @@ export class CarrinhoItensService {
       throw new NotFoundException(`Catálogo não encontrado.`);
     }
 
-    // Verifica se o ingresso específico está disponível
+    // Buscar o ingresso pelo ID fornecido
     const ingresso = await this.ingressoRepository.findOne({
-      where: {
-        catalogo: { id_catalogo: createCarrinhoItensDto.catalogoIdCatalogo },
-        id_ingresso: createCarrinhoItensDto.ingressoId,
-      },
+      where: { id_ingresso: createCarrinhoItensDto.ingressoId },
     });
 
     if (!ingresso) {
-      throw new NotFoundException(`Ingresso não encontrado no catálogo.`);
+      throw new NotFoundException(`Ingresso não encontrado.`);
     }
 
+    // Verifica se a quantidade desejada está disponível
     if (ingresso.quantidade < createCarrinhoItensDto.quantidade) {
-      throw new BadRequestException(
-        'Não há ingressos disponíveis suficientes!',
-      );
+      throw new BadRequestException('Quantidade de ingressos indisponível.');
     }
 
+    // Calcula o valor total com e sem desconto
     const valorTotalSemDesconto =
       createCarrinhoItensDto.quantidade * ingresso.preco_unitario;
-
     if (createCarrinhoItensDto.desconto > valorTotalSemDesconto) {
       throw new BadRequestException(
-        'Desconto não pode ser acima do valor total da compra',
+        'Desconto não pode ser maior que o valor total.',
       );
     }
-
     const valorTotalComDesconto =
       valorTotalSemDesconto - createCarrinhoItensDto.desconto;
 
@@ -68,14 +64,16 @@ export class CarrinhoItensService {
     ingresso.quantidade -= createCarrinhoItensDto.quantidade;
     await this.ingressoRepository.save(ingresso);
 
+    // Cria o novo item do carrinho
     const newCarrinhoItens = this.carrinhoItensRepository.create({
       ...createCarrinhoItensDto,
-      catalogo,
-      ingresso,
-      preco_item: ingresso.preco_unitario,
+      catalogo: catalogo,
+      ingresso: ingresso,
+      // preco_item: ingresso.preco_unitario,
       valor_total: valorTotalComDesconto,
     });
 
+    // Salva o novo item do carrinho no banco de dados
     return await this.carrinhoItensRepository.save(newCarrinhoItens);
   }
 

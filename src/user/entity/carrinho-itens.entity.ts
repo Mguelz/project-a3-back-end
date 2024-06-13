@@ -17,9 +17,6 @@ export class CarrinhoItensEntity {
   @Column({ type: 'numeric', precision: 7, scale: 2 })
   desconto: number;
 
-  @Column({ type: 'numeric', precision: 7, scale: 2 })
-  preco_item: number;
-
   @Column({ type: 'int' })
   quantidade: number;
 
@@ -40,10 +37,7 @@ export class CarrinhoItensEntity {
   @Column('Int')
   catalogoIdCatalogo: number;
 
-  @ManyToOne(() => IngressoEntity, (ingresso) => ingresso.id_ingresso)
+  @ManyToOne(() => IngressoEntity, (ingresso) => ingresso.itens)
   @JoinColumn({ name: 'ingresso_id' })
   ingresso: IngressoEntity;
-
-  // @Column('int')
-  // ingressoId: number;
 }

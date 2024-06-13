@@ -20,6 +20,5 @@ export class IngressoEntity {
   catalogo: CatalogoCabecaEntity; // [] - não precisa / ingresso pertence a 1 catalogo
 
   @OneToMany(() => CarrinhoItensEntity, (itens) => itens.carrinho)
-  // @JoinColumn({ name: 'itens_carrinho' })
-  ingresso: CarrinhoItensEntity;
+  itens: CarrinhoItensEntity;
 }

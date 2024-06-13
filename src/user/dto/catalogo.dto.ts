@@ -16,9 +16,9 @@ export class CreateCatalogoDto {
   @Min(0, { message: 'O preço unitário deve ser maior ou igual a 0' })
   preco_unitario: number;
 
-  @IsInt()
-  @Min(0, { message: 'A quantidade disponível deve ser maior ou igual a 0' })
-  disponivel: number;
+  // @IsInt()
+  // @Min(0, { message: 'A quantidade disponível deve ser maior ou igual a 0' })
+  // disponivel: number;
 
   @IsInt()
   @Min(0, { message: 'A quantidade vendida deve ser maior ou igual a 0' })
