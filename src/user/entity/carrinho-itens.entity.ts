@@ -40,10 +40,10 @@ export class CarrinhoItensEntity {
   @Column('Int')
   catalogoIdCatalogo: number;
 
-  @ManyToOne(() => IngressoEntity)
+  @ManyToOne(() => IngressoEntity, (ingresso) => ingresso.id_ingresso)
   @JoinColumn({ name: 'ingresso_id' })
   ingresso: IngressoEntity;
 
-  @Column('int')
-  ingressoId: number;
+  // @Column('int')
+  // ingressoId: number;
 }

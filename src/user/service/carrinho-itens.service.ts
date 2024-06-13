@@ -16,14 +16,19 @@ import { IngressoEntity } from '../entity/ingresso.entity';
 @Injectable()
 export class CarrinhoItensService {
   constructor(
+    @InjectRepository(CarrinhoItensEntity)
+    private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
+    private catalogoService: CatalogoService,
     @InjectRepository(IngressoEntity)
     private ingressoRepository: Repository<IngressoEntity>,
-    private catalogoService: CatalogoService,
-    private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
   ) {}
 
-  async create(createCarrinhoItensDto: CreateCarrinhoItensDto): Promise<CarrinhoItensEntity> {
-    const catalogo = await this.catalogoService.findOne(createCarrinhoItensDto.catalogoIdCatalogo);
+  async create(
+    createCarrinhoItensDto: CreateCarrinhoItensDto,
+  ): Promise<CarrinhoItensEntity> {
+    const catalogo = await this.catalogoService.findOne(
+      createCarrinhoItensDto.catalogoIdCatalogo,
+    );
 
     if (!catalogo) {
       throw new NotFoundException(`Catálogo não encontrado.`);
@@ -31,8 +36,8 @@ export class CarrinhoItensService {
 
     // Verifica se o ingresso específico está disponível
     const ingresso = await this.ingressoRepository.findOne({
-      where: { 
-        catalogo: { id_catalogo: createCarrinhoItensDto.catalogoIdCatalogo }, 
+      where: {
+        catalogo: { id_catalogo: createCarrinhoItensDto.catalogoIdCatalogo },
         id_ingresso: createCarrinhoItensDto.ingressoId,
       },
     });
@@ -42,16 +47,22 @@ export class CarrinhoItensService {
     }
 
     if (ingresso.quantidade < createCarrinhoItensDto.quantidade) {
-      throw new BadRequestException('Não há ingressos disponíveis suficientes!');
+      throw new BadRequestException(
+        'Não há ingressos disponíveis suficientes!',
+      );
     }
 
-    const valorTotalSemDesconto = createCarrinhoItensDto.quantidade * ingresso.preco_unitario;
+    const valorTotalSemDesconto =
+      createCarrinhoItensDto.quantidade * ingresso.preco_unitario;
 
     if (createCarrinhoItensDto.desconto > valorTotalSemDesconto) {
-      throw new BadRequestException('Desconto não pode ser acima do valor total da compra');
+      throw new BadRequestException(
+        'Desconto não pode ser acima do valor total da compra',
+      );
     }
 
-    const valorTotalComDesconto = valorTotalSemDesconto - createCarrinhoItensDto.desconto;
+    const valorTotalComDesconto =
+      valorTotalSemDesconto - createCarrinhoItensDto.desconto;
 
     // Atualiza a quantidade disponível do ingresso
     ingresso.quantidade -= createCarrinhoItensDto.quantidade;
