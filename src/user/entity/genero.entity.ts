@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { CatalogoCabecaEntity } from '../entity/catalogo-cabeca.entity';
+import { CatalogoEntity } from '../entity/catalogo-cabeca.entity';
 
 @Entity({name: 'genero'})
 export class GeneroEntity {
@@ -10,6 +10,6 @@ export class GeneroEntity {
   nome: string;
 
 
-  @OneToMany(() => CatalogoCabecaEntity, (catalogo) => catalogo.genero)
-  catalogos: CatalogoCabecaEntity[];
+  @OneToMany(() => CatalogoEntity, (catalogo) => catalogo.genero)
+  catalogos: CatalogoEntity[];
 }

@@ -10,7 +10,7 @@ import { CarrinhoItensEntity } from './carrinho-itens.entity';
 import { IngressoEntity } from './ingresso.entity';
 
 @Entity({name: 'catalogo'})
-export class CatalogoCabecaEntity {
+export class CatalogoEntity {
   @PrimaryGeneratedColumn()
   id_catalogo: number;
 

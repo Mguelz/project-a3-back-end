@@ -70,7 +70,7 @@ export class CarrinhoItensService {
       catalogo: catalogo,
       ingresso: ingresso,
       // preco_item: ingresso.preco_unitario,
-      valor_total: valorTotalComDesconto,
+      valor_final: valorTotalComDesconto,
     });
 
     // Salva o novo item do carrinho no banco de dados

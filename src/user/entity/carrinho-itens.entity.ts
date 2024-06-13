@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
-import { CatalogoCabecaEntity } from './catalogo-cabeca.entity';
+import { CatalogoEntity } from './catalogo-cabeca.entity';
 import { IngressoEntity } from './ingresso.entity';
 
 @Entity({name: 'itens_carrinho'})
@@ -21,15 +21,15 @@ export class CarrinhoItensEntity {
   quantidade: number;
 
   @Column({type: 'numeric', precision:7, scale:2})
-  valor_total: number;
+  valor_final: number;
 
   @ManyToOne(() => CarrinhoCabecaEntity, (carrinho) => carrinho.itens)
   @JoinColumn({ name: 'id_carrinho' })
   carrinho: CarrinhoCabecaEntity;
 
-  @ManyToOne(() => CatalogoCabecaEntity, (catalogo) => catalogo)
+  @ManyToOne(() => CatalogoEntity, (catalogo) => catalogo)
   @JoinColumn()
-  catalogo: CatalogoCabecaEntity;
+  catalogo: CatalogoEntity;
 
   @Column('Int')
   id_carrinho: number;
