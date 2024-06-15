@@ -1,3 +1,34 @@
+Instruções para baixar o back-end na máquina
+
+1. baixar o nest 
+md -> npm install -g @nestjs/cli
+cmd -> set path=%path%;C:\Users\822111000\AppData\Roaming\npm (URL exemplo)
+cmd -> nest -v (deve aparecer a versão)
+
+2. Quando baixar for abrir o projeto executar o comando -> npm i
+3. Quando abrir o projeto criar um arquivo na raiz chamado ".env" com o seguinte conteudo
+
+DB_TYPE=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=senhaDoSeuBanco
+DB_DATABASE=project_a3
+DB_ENTITIES=dist/**/*.entity{.ts,.js}
+DB_SYNCHRONIZE=true
+JWT_SECRET=projetoa3
+
+4. Crei um banco de dados no mysql com o nome "project_a3"
+
+5. Rode o projeto - "npm run start:dev" (o projeto estará rodando na porta 3000)
+
+6. As rotas se encontram no diretório - src/user/controller
+
+------
+------
+------
+------
+
 Exemplos de Json para Crud no banco
 
 Login Exemples
