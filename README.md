@@ -1,11 +1,11 @@
 Instruções para baixar o back-end na máquina
 
 1. baixar o nest 
-md -> npm install -g @nestjs/cli
-cmd -> set path=%path%;C:\Users\822111000\AppData\Roaming\npm (URL exemplo)
+md -> "npm install -g @nestjs/cli"
+cmd -> "set path=%path%;C:\Users\822111000\AppData\Roaming\npm" (URL exemplo)
 cmd -> nest -v (deve aparecer a versão)
 
-2. Quando baixar for abrir o projeto executar o comando -> npm i
+2. Antes de abrir o projeto executar o comando -> "npm i"
 3. Quando abrir o projeto criar um arquivo na raiz chamado ".env" com o seguinte conteudo
 
 DB_TYPE=mysql
