@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { GeneroEntity } from './genero.entity';
-import { CarrinhoItensEntity } from './carrinho-itens.entity';
+import { CarrinhoItensEntity } from 'src/payment/entity/carrinho-itens.entity';
 import { IngressoEntity } from './ingresso.entity';
 
 @Entity({name: 'catalogo'})

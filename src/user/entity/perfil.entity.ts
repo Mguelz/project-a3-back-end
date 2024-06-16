@@ -7,9 +7,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { LoginEntity } from '../entity/login.entity';
-import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
+import { CarrinhoCabecaEntity } from 'src/payment/entity/carrinho-cabeca.entity';
 
-@Entity({name: 'perfil'})
+@Entity({ name: 'perfil' })
 export class PerfilEntity {
   @PrimaryGeneratedColumn()
   @OneToOne(() => LoginEntity, (login) => login.perfil)

@@ -1,6 +1,12 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { CatalogoEntity } from './catalogo-cabeca.entity';
-import { CarrinhoItensEntity } from './carrinho-itens.entity';
+import { CarrinhoItensEntity } from 'src/payment/entity/carrinho-itens.entity';
 
 @Entity({ name: 'ingresso' })
 export class IngressoEntity {

@@ -6,10 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { CarrinhoCabecaEntity } from './carrinho-cabeca.entity';
-import { CatalogoEntity } from './catalogo-cabeca.entity';
-import { IngressoEntity } from './ingresso.entity';
+import { CatalogoEntity } from 'src/product/entity/catalogo-cabeca.entity';
+import { IngressoEntity } from 'src/product/entity/ingresso.entity';
 
-@Entity({name: 'itens_carrinho'})
+@Entity({ name: 'itens_carrinho' })
 export class CarrinhoItensEntity {
   @PrimaryGeneratedColumn()
   id_carrinho_item: number;
@@ -20,7 +20,7 @@ export class CarrinhoItensEntity {
   @Column({ type: 'int' })
   quantidade: number;
 
-  @Column({type: 'numeric', precision:7, scale:2})
+  @Column({ type: 'numeric', precision: 7, scale: 2 })
   valor_final: number;
 
   @ManyToOne(() => CarrinhoCabecaEntity, (carrinho) => carrinho.itens)

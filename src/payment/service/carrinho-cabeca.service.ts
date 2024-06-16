@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarrinhoCabecaEntity } from '../entity/carrinho-cabeca.entity';
-import { PerfilService } from './perfil.service';
+import { PerfilService } from 'src/user/service/perfil.service';
 import {
   CreateCarrinhoCabecaDto,
   UpdateCarrinhoCabecaDto,
@@ -46,7 +46,7 @@ export class CarrinhoCabecaService {
     if (!perfil) {
       throw new NotFoundException(`Perfil não encontrado.`);
     }
-    
+
     const novoCarrinhoCabeca = this.carrinhoCabecaRepository.create({
       ...createCarrinhoCabecaDto,
       perfil: perfil,
