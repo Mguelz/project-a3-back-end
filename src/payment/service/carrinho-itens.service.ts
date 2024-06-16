@@ -10,8 +10,8 @@ import {
   CreateCarrinhoItensDto,
   UpdateCarrinhoItensDto,
 } from '../dto/carrinho-itens.dto';
-import { CatalogoService } from './catalogo-cabeca.service';
-import { IngressoEntity } from '../entity/ingresso.entity';
+import { CatalogoService } from 'src/product/service/catalogo-cabeca.service';
+import { IngressoEntity } from 'src/product/entity/ingresso.entity';
 
 @Injectable()
 export class CarrinhoItensService {
