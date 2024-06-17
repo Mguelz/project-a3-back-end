@@ -12,12 +12,15 @@ import {
 } from '../dto/carrinho-itens.dto';
 import { CatalogoService } from 'src/product/service/catalogo-cabeca.service';
 import { IngressoEntity } from 'src/product/entity/ingresso.entity';
+import { CatalogoEntity } from 'src/product/entity/catalogo-cabeca.entity';
 
 @Injectable()
 export class CarrinhoItensService {
   constructor(
     @InjectRepository(CarrinhoItensEntity)
     private carrinhoItensRepository: Repository<CarrinhoItensEntity>,
+    @InjectRepository(CatalogoEntity)
+    private catalogoRepository: Repository<CatalogoEntity>,
     private catalogoService: CatalogoService,
     @InjectRepository(IngressoEntity)
     private ingressoRepository: Repository<IngressoEntity>,
@@ -60,9 +63,13 @@ export class CarrinhoItensService {
     const valorTotalComDesconto =
       valorTotalSemDesconto - createCarrinhoItensDto.desconto;
 
-    // Atualiza a quantidade disponível do ingresso
+    // Diminui a quantidade disponível do ingresso
     ingresso.quantidade -= createCarrinhoItensDto.quantidade;
     await this.ingressoRepository.save(ingresso);
+
+    // Aumenta a quantidade vendido na tabela catálogo
+    catalogo.vendido += createCarrinhoItensDto.quantidade;
+    await this.catalogoRepository.save(catalogo);
 
     // Cria o novo item do carrinho
     const newCarrinhoItens = this.carrinhoItensRepository.create({
