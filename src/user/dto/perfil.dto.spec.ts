@@ -1,7 +1,7 @@
-import { PerfilDto } from './perfil.dto';
+import { CreatePerfilDto } from './perfil.dto';
 
 describe('PerfilDto', () => {
   it('should be defined', () => {
-    expect(new PerfilDto()).toBeDefined();
+    expect(new CreatePerfilDto()).toBeDefined();
   });
 });
