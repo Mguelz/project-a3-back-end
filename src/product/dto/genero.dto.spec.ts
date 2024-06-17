@@ -1,7 +1,7 @@
-import { GeneroDto } from './genero.dto';
+import { CreateGeneroDto } from './genero.dto';
 
 describe('GeneroDto', () => {
   it('should be defined', () => {
-    expect(new GeneroDto()).toBeDefined();
+    expect(new CreateGeneroDto()).toBeDefined();
   });
 });

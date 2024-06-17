@@ -1,7 +1,7 @@
-import { IngressoDto } from './ingresso.dto';
+import { CreateIngressoDto } from './ingresso.dto';
 
 describe('IngressoDto', () => {
   it('should be defined', () => {
-    expect(new IngressoDto()).toBeDefined();
+    expect(new CreateIngressoDto()).toBeDefined();
   });
 });

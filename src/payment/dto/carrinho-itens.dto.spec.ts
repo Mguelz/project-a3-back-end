@@ -1,7 +1,7 @@
-import { CarrinhoItensDto } from './carrinho-itens.dto';
+import { CreateCarrinhoItensDto } from './carrinho-itens.dto';
 
 describe('CarrinhoItensDto', () => {
   it('should be defined', () => {
-    expect(new CarrinhoItensDto()).toBeDefined();
+    expect(new CreateCarrinhoItensDto()).toBeDefined();
   });
 });

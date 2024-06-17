@@ -1,7 +1,7 @@
-import { CatalogoDto } from './catalogo.dto';
+import { CreateCatalogoDto } from './catalogo.dto';
 
 describe('CatalogoDto', () => {
   it('should be defined', () => {
-    expect(new CatalogoDto()).toBeDefined();
+    expect(new CreateCatalogoDto()).toBeDefined();
   });
 });
